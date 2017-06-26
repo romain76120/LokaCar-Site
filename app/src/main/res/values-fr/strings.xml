@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LokaCar Site</string>
+    <string name="action_settings">Configurations</string>
+    <string name="action_sign_in">Se connecter ou s\'enregistrer</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="error_field_required">Ce champ est requis</string>
+    <string name="error_incorrect_password">Mot de passe incorrect</string>
+    <string name="error_invalid_email">Adresse de courriel invalide</string>
+    <string name="error_invalid_password">Le mot de passe est trop court</string>
+    <string name="navigation_drawer_close">Fermeture de la barre de navigation</string>
+    <string name="navigation_drawer_open">Ouverture de la barre de navigation</string>
+    <string name="permission_rationale">\"L\'accès aux contacts est requis pour accéder à la complétion de l\'adresse de courriel.\"</string>
+    <string name="prompt_email">Utilisateur</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="string_list_car_status">Loué</string>
+    <string name="title_activity_login">Connexion</string>
+</resources>

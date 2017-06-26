@@ -47,7 +47,7 @@
         android:layout_marginRight="8dp"
         android:layout_gravity="center_vertical"
         android:layout_height="wrap_content"
-        tools:text="Loué" />
+        tools:text="@string/string_list_car_status" />
 
 
 </LinearLayout>

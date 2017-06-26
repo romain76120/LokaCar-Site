@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -51,26 +52,26 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final EditText editTextQuery = (EditText) findViewById(R.id.edit_text_query);
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="https://databases.000webhost.com/db_structure.php?server=1&db=id2071219_lokacarsite&token=4dcd1e90bb652bbe9217ebf8203de76c";
-
-// Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        editTextQuery.setText("La réponse est : "+ response.substring(0,500));
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                editTextQuery.setText("ça ne fonctionne pas");
-            }
-        });
-// Add the request to the RequestQueue.
-        queue.add(stringRequest);
+//        final EditText editTextQuery = (EditText) findViewById(R.id.edit_text_query);
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        String url ="https://databases.000webhost.com/db_structure.php?server=1&db=id2071219_lokacarsite&token=4dcd1e90bb652bbe9217ebf8203de76c";
+//
+//// Request a string response from the provided URL.
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        // Display the first 500 characters of the response string.
+//                        editTextQuery.setText("La réponse est : "+ response.substring(0,500));
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                editTextQuery.setText("ça ne fonctionne pas");
+//            }
+//        });
+//// Add the request to the RequestQueue.
+//        queue.add(stringRequest);
     }
 
     @Override
@@ -103,6 +104,14 @@ public class HomeActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void switchFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.linearLayoutFragment, fragment)
+                .commit();
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
