@@ -19,4 +19,5 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="string_list_car_status">Rented</string>
 </resources>

@@ -4,10 +4,7 @@
     <color name="colorPrimaryDark">#00766c</color>
     <color name="colorPrimaryLight">#64d8cb</color>
     <color name="colorPrimaryText">#000000</color>
-    <color name="colorSecondary">#c8e6c9</color>
-    <color name="colorSecondaryDark">#97b498</color>
-    <color name="colorSecondaryLight">#fbfffc</color>
-    <color name="colorSecondaryText">#000000</color>
-    <color name="colorStatus">#FF4081</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryTextButton">#000000</color>
+    <color name="colorStatus">#26a69a</color>
+    <color name="colorAccent">#97b498</color>
 </resources>
