@@ -16,8 +16,9 @@ public class Car {
     public String criteria;
     public List<String> photos;
     public String price;
+    public Boolean isLeasing;
 
-    public Car(Integer id, String carBrand, String name, String registration, String fuel, String type, String criteria, List<String> photos, String price) {
+    public Car(Integer id, String carBrand, String name, String registration, String fuel, String type, String criteria, List<String> photos, String price, Boolean isLeasing) {
         this.id = id;
         this.carBrand = carBrand;
         this.name = name;
@@ -27,6 +28,7 @@ public class Car {
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
+        this.isLeasing = isLeasing;
     }
     public Car(String carBrand, String name, String registration, String fuel, String type, String criteria, List<String> photos, String price) {
         this.id = -1;
@@ -38,5 +40,6 @@ public class Car {
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
+        this.isLeasing = false;
     }
 }

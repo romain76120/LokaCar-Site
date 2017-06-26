@@ -12,9 +12,9 @@ public class User {
     public String phone;
     public String login;
     public String password;
-    public String admin;
+    public Boolean admin;
 
-    public User(Integer id, String firstname, String lastname, String mail, String phone, String login, String password, String admin) {
+    public User(Integer id, String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -25,7 +25,7 @@ public class User {
         this.admin = admin;
     }
 
-    public User(String firstname, String lastname, String mail, String phone, String login, String password, String admin) {
+    public User(String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin) {
         this.id = -1;
         this.firstname = firstname;
         this.lastname = lastname;

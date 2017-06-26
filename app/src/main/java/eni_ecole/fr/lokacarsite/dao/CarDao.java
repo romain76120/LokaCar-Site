@@ -30,11 +30,31 @@ public class CarDao {
         return getAll().get(id);
     }
 
+    public List<Car> getFromCriteria(String criteria)
+    {
+        ArrayList<Car> carSelection = new ArrayList<Car>();
+        for (Car car: getAll())
+        {
+            if (car.criteria.equals(criteria))
+            {
+                carSelection.add(car);
+            }
+        }
+        return carSelection;
+    }
+
     public void set(Integer id, Car car)
     {
         Car mCar = getAll().get(id);
         mCar.name = car.name;
-        // TODO
+        mCar.carBrand = car.carBrand;
+        mCar.name = car.name;
+        mCar.registration = car.registration;
+        mCar.fuel = car.fuel;
+        mCar.type = car.type;
+        mCar.criteria = car.criteria;
+        mCar.price = car.price;
+        mCar.isLeasing = car.isLeasing;
     }
 
     public Car add(Car car){

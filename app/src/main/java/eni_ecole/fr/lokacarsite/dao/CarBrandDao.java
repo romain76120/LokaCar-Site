@@ -18,8 +18,10 @@ public class CarBrandDao {
         if (carBrands == null)
         {
             carBrands = new ArrayList<CarBrand>();
-            // TODO
-            //cars.add(new Car());
+            carBrands.add(new CarBrand(0,"Peugeot"));
+            carBrands.add(new CarBrand(0,"Renault"));
+            carBrands.add(new CarBrand(0,"Citroën"));
+            carBrands.add(new CarBrand(0,"Audi"));
         }
         return carBrands;
     }
@@ -29,17 +31,16 @@ public class CarBrandDao {
         return getAll().get(id);
     }
 
-    public void set(Integer id, CarBrand car)
+    public void set(Integer id, CarBrand carBrand)
     {
-        CarBrand mCar = getAll().get(id);
-        mCar.name = car.name;
-        // TODO
+        CarBrand mCarBrand = getAll().get(id);
+        mCarBrand.name = carBrand.name;
     }
 
-    public CarBrand add(CarBrand car){
-        car.id = getAll().size();
-        getAll().add(car);
-        return car;
+    public CarBrand add(CarBrand carBrand){
+        carBrand.id = getAll().size();
+        getAll().add(carBrand);
+        return carBrand;
     }
 
     public void delete(Integer id){
