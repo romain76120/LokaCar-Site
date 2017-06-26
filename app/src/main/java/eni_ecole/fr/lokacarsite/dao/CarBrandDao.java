@@ -3,41 +3,40 @@ package eni_ecole.fr.lokacarsite.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import eni_ecole.fr.lokacarsite.beans.Agency;
 import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.CarBrand;
 
 /**
- * Created by rroger2016 on 26/06/2017.
+ * Created by pbontempi2017 on 26/06/2017.
  */
 
-public class CarDao {
+public class CarBrandDao {
+    private static ArrayList<CarBrand> carBrands = null;
 
-    private static ArrayList<Car> cars = null;
-
-    public List<Car> getAll()
+    public List<CarBrand> getAll()
     {
-        if (cars == null)
+        if (carBrands == null)
         {
-            cars = new ArrayList<Car>();
+            carBrands = new ArrayList<CarBrand>();
             // TODO
             //cars.add(new Car());
         }
-        return cars;
+        return carBrands;
     }
 
-    public Car getFromId(Integer id)
+    public CarBrand getFromId(Integer id)
     {
         return getAll().get(id);
     }
 
-    public void set(Integer id, Car car)
+    public void set(Integer id, CarBrand car)
     {
-        Car mCar = getAll().get(id);
+        CarBrand mCar = getAll().get(id);
         mCar.name = car.name;
         // TODO
     }
 
-    public Car add(Car car){
+    public CarBrand add(CarBrand car){
         car.id = getAll().size();
         getAll().add(car);
         return car;
