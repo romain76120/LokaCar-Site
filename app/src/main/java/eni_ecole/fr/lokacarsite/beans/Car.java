@@ -8,20 +8,18 @@ import java.util.List;
 
 public class Car {
     public Integer id;
-    public String carBrand;
-    public String name;
+    public Integer idCarModel;
     public String registration; // Immatriculation
     public String fuel;
     public String type; // suv, berline...
     public String criteria;
     public List<String> photos;
-    public String price;
+    public Float price;
     public Boolean isLeasing;
 
-    public Car(Integer id, String carBrand, String name, String registration, String fuel, String type, String criteria, List<String> photos, String price, Boolean isLeasing) {
+    public Car(Integer id, Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, Boolean isLeasing) {
         this.id = id;
-        this.carBrand = carBrand;
-        this.name = name;
+        this.idCarModel = idCarModel;
         this.registration = registration;
         this.fuel = fuel;
         this.type = type;
@@ -30,10 +28,9 @@ public class Car {
         this.price = price;
         this.isLeasing = isLeasing;
     }
-    public Car(String carBrand, String name, String registration, String fuel, String type, String criteria, List<String> photos, String price) {
+    public Car(Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price) {
         this.id = -1;
-        this.carBrand = carBrand;
-        this.name = name;
+        this.idCarModel = idCarModel;
         this.registration = registration;
         this.fuel = fuel;
         this.type = type;

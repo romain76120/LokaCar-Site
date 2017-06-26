@@ -5,6 +5,7 @@ import java.util.List;
 
 import eni_ecole.fr.lokacarsite.beans.Agency;
 import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.CarModel;
 
 /**
  * Created by rroger2016 on 26/06/2017.
@@ -19,8 +20,34 @@ public class CarDao {
         if (cars == null)
         {
             cars = new ArrayList<Car>();
-            // TODO
-            //cars.add(new Car());
+//            add(new CarModel(0,"106")); 0
+//            add(new CarModel(0,"206")); 1
+//            add(new CarModel(0,"207")); 2
+//            add(new CarModel(0,"208")); 3
+//            add(new CarModel(0,"307")); 4
+//            add(new CarModel(0,"308")); 5
+//            add(new CarModel(0,"407")); 6
+//            add(new CarModel(0,"408")); 7
+//            add(new CarModel(0,"5008")); 8
+//            add(new CarModel(1,"Clio")); 9
+//            add(new CarModel(1,"Mégane")); 10
+//            add(new CarModel(1,"Scénic")); 11
+//            add(new CarModel(2,"C1")); 12
+//            add(new CarModel(2,"C2")); 13
+//            add(new CarModel(2,"C3")); 14
+//            add(new CarModel(2,"C4")); 15
+//            add(new CarModel(2,"C5")); 16
+//            add(new CarModel(3,"A1")); 17
+//            add(new CarModel(3,"A2")); 18
+//            add(new CarModel(3,"A3")); 19
+//            add(new CarModel(3,"A4")); 20
+//            add(new CarModel(3,"A5")); 21
+//            add(new CarModel(3,"A6")); 22
+            add(new Car(1,"4546AT44", "Diesel", "Citadine", "Hors ville", new ArrayList<String>(), new Float(58.89 )));
+            add(new Car(5,"5546ET44", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(78.89 )));
+            add(new Car(12,"845VFAT", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(49.89 )));
+            add(new Car(15,"45687FG", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(105.89 )));
+            add(new Car(21,"HTGRATUI", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(158.89 )));
         }
         return cars;
     }
@@ -46,9 +73,7 @@ public class CarDao {
     public void set(Integer id, Car car)
     {
         Car mCar = getAll().get(id);
-        mCar.name = car.name;
-        mCar.carBrand = car.carBrand;
-        mCar.name = car.name;
+        mCar.idCarModel = car.idCarModel;
         mCar.registration = car.registration;
         mCar.fuel = car.fuel;
         mCar.type = car.type;

@@ -15,7 +15,7 @@ public class CarModel {
         this.idCarBrand = idCarBrand;
     }
 
-    public CarModel(String name,  Integer idCarBrand) {
+    public CarModel(Integer idCarBrand, String name) {
         this.id = -1;
         this.name = name;
         this.idCarBrand = idCarBrand;

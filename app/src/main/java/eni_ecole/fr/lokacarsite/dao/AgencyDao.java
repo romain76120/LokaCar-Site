@@ -18,7 +18,7 @@ public class AgencyDao {
         if (agencies == null)
         {
             agencies = new ArrayList<Agency>();
-            agencies.add(new Agency(1, "Nantes", "2 rue d'Orléans", "http://monagencedenantes.com","0241554788"));
+            add(new Agency("Nantes", "2 rue d'Orléans", "http://monagencedenantes.com","0241554788"));
         }
         return agencies;
     }

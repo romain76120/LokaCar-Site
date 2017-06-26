@@ -18,7 +18,33 @@ public class CarModelDao {
         if (carModels == null)
         {
             carModels = new ArrayList<CarModel>();
-            // TODO
+//            carBrands.add(new CarBrand(0,"Peugeot"));
+//            carBrands.add(new CarBrand(0,"Renault"));
+//            carBrands.add(new CarBrand(0,"Citroën"));
+//            carBrands.add(new CarBrand(0,"Audi"));
+            add(new CarModel(0,"106"));
+            add(new CarModel(0,"206"));
+            add(new CarModel(0,"207"));
+            add(new CarModel(0,"208"));
+            add(new CarModel(0,"307"));
+            add(new CarModel(0,"308"));
+            add(new CarModel(0,"407"));
+            add(new CarModel(0,"408"));
+            add(new CarModel(0,"5008"));
+            add(new CarModel(1,"Clio"));
+            add(new CarModel(1,"Mégane"));
+            add(new CarModel(1,"Scénic"));
+            add(new CarModel(2,"C1"));
+            add(new CarModel(2,"C2"));
+            add(new CarModel(2,"C3"));
+            add(new CarModel(2,"C4"));
+            add(new CarModel(2,"C5"));
+            add(new CarModel(3,"A1"));
+            add(new CarModel(3,"A2"));
+            add(new CarModel(3,"A3"));
+            add(new CarModel(3,"A4"));
+            add(new CarModel(3,"A5"));
+            add(new CarModel(3,"A6"));
             //cars.add(new Car());
         }
         return carModels;

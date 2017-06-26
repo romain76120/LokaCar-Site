@@ -16,9 +16,9 @@ public class UserDao {
     public List<User> getAll() {
         if (users == null) {
             users = new ArrayList<User>();
-            users.add(new User(0, "Romain", "Roger", "romain.roger.on sen bas les ", "0241445544", "r", "r", true));
-            users.add(new User(0, "Philippe", "Bontempi", "philippe.bontempi@toto.net", "0241525544", "p", "p", true));
-            users.add(new User(0, "toto", "toto", "toto.toto@toto.net", "0241525544", "t", "t", true));
+            add(new User("Romain", "Roger", "romain.roger.on sen bas les ", "0241445544", "r", "r", true));
+            add(new User("Philippe", "Bontempi", "philippe.bontempi@toto.net", "0241525544", "p", "p", true));
+            add(new User("toto", "toto", "toto.toto@toto.net", "0241525544", "t", "t", true));
         }
         return users;
     }

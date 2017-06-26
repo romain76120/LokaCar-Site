@@ -18,10 +18,10 @@ public class CarBrandDao {
         if (carBrands == null)
         {
             carBrands = new ArrayList<CarBrand>();
-            carBrands.add(new CarBrand(0,"Peugeot"));
-            carBrands.add(new CarBrand(0,"Renault"));
-            carBrands.add(new CarBrand(0,"Citroën"));
-            carBrands.add(new CarBrand(0,"Audi"));
+            add(new CarBrand("Peugeot"));
+            add(new CarBrand("Renault"));
+            add(new CarBrand("Citroën"));
+            add(new CarBrand("Audi"));
         }
         return carBrands;
     }
