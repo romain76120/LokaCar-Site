@@ -1,6 +1,7 @@
 package eni_ecole.fr.lokacarsite.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -14,24 +15,24 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import eni_ecole.fr.lokacarsite.constent.Constant;
 import eni_ecole.fr.lokacarsite.R;
-import eni_ecole.fr.lokacarsite.beans.Client;
-import eni_ecole.fr.lokacarsite.beans.User;
-import eni_ecole.fr.lokacarsite.dao.ClientDao;
+import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.dao.CarModelDao;
 
 /**
  * Created by phili on 26/06/2017.
  */
 
-public class UserAdapter extends ArrayAdapter<User> {
-    private final ArrayList<User> users;
+public class CarModelsAdapter extends ArrayAdapter<CarModel> {
+    private final ArrayList<CarModel> carModels;
     private final Context context;
     private final int ressourceId;
     private final Resources ressource;
 
-    public UserAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull ArrayList<User> users) {
-        super(context, resource, textViewResourceId, users);
-        this.users = users;
+    public CarModelsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull ArrayList<CarModel> carModels) {
+        super(context, resource, textViewResourceId, carModels);
+        this.carModels = carModels;
         this.context = context;
         this.ressourceId = resource;
         this.ressource = context.getResources();
@@ -50,20 +51,13 @@ public class UserAdapter extends ArrayAdapter<User> {
             view = convertView;
         }
 
-        User oneUser;
+        CarModel oneCarModel;
 
-        TextView listClientLastname;
-        TextView listClientFirstname;
+        TextView listCarBrand;
 
-        listClientLastname = (TextView) view.findViewById(R.id.list_client_lastname);
-        listClientFirstname = (TextView) view.findViewById(R.id.list_client_firstname);
+        listCarBrand = (TextView) view.findViewById(R.id.list_car_model);
 
-
-        oneUser = users.get(position);
-
-        listClientLastname.setText(oneUser.lastname);
-        listClientFirstname.setText(oneUser.firstname);
-
+        oneCarModel = carModels.get(position);
 
         return view;
     }

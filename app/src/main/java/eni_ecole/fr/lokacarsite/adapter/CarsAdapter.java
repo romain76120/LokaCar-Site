@@ -58,7 +58,6 @@ public class CarsAdapter extends ArrayAdapter<Car> {
         CarBrand oneCarBrand;
         CarModel oneCarModel;
 
-        CarDao carDao;
         CarBrandDao carBrandDao;
         CarModelDao carModelDao;
 
@@ -72,11 +71,10 @@ public class CarsAdapter extends ArrayAdapter<Car> {
         listCarTextLine2 = (TextView) view.findViewById(R.id.list_car_text_line2);
         listCarStatus = (TextView) view.findViewById(R.id.list_car_status);
 
-        carDao = new CarDao();
         carBrandDao = new CarBrandDao();
         carModelDao = new CarModelDao();
 
-        oneCar = carDao.getFromId(position);
+        oneCar = cars.get(position);
         oneCarModel = carModelDao.getFromId(oneCar.idCarModel);
         oneCarBrand = carBrandDao.getFromId(oneCarModel.idCarBrand);
 
