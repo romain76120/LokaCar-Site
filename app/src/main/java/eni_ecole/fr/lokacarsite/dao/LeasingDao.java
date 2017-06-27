@@ -56,14 +56,9 @@ public class LeasingDao {
         mLeasing.realStartDate = leasing.realStartDate;
         mLeasing.realEndDate = leasing.realEndDate;
         mLeasing.priceTotal = leasing.priceTotal;
-    }
+        mLeasing.photoBefore = leasing.photoBefore;
+        mLeasing.photoAfter = leasing.photoAfter;
 
-    public void addPhotoBefore (Integer id, String photo){
-        getAll().get(id).photoBefore.add(photo);
-    }
-
-    public void addPhotoAfter (Integer id, String photo){
-        getAll().get(id).photoAfter.add(photo);
     }
 
     public Leasing add(Leasing leasing) {

@@ -15,9 +15,10 @@ public class Car {
     public String criteria;
     public List<String> photos;
     public Float price;
+    public List<Leasing> leasings;
     public Boolean isLeasing;
 
-    public Car(Integer id, Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, Boolean isLeasing) {
+    public Car(Integer id, Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = id;
         this.idCarModel = idCarModel;
         this.registration = registration;
@@ -27,8 +28,9 @@ public class Car {
         this.photos = photos;
         this.price = price;
         this.isLeasing = isLeasing;
+        this.leasings = leasings;
     }
-    public Car(Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price) {
+    public Car(Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, List<Leasing> leasings) {
         this.id = -1;
         this.idCarModel = idCarModel;
         this.registration = registration;
@@ -38,5 +40,6 @@ public class Car {
         this.photos = photos;
         this.price = price;
         this.isLeasing = false;
+        this.leasings = leasings;
     }
 }
