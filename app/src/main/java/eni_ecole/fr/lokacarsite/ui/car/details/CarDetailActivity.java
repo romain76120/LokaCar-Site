@@ -14,12 +14,8 @@ import android.widget.Toast;
 import eni_ecole.fr.lokacarsite.HomeActivity;
 import eni_ecole.fr.lokacarsite.R;
 
-/**
- * An activity representing a single Car detail screen. This
- * activity is only used narrow width devices. On tablet-size devices,
- * item details are presented side-by-side with a list of items
- * in a {@link CarListActivity}.
- */
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+
 public class CarDetailActivity extends AppCompatActivity {
 
     @Override
@@ -44,6 +40,10 @@ public class CarDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE)
+        {
+            this.finish();
+        }
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
         // (e.g. when rotating the screen from portrait to landscape).
@@ -71,7 +71,7 @@ public class CarDetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
         if (id == android.R.id.home) {
             finish();
