@@ -22,16 +22,11 @@
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
-        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/linearLayoutFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <include layout="@layout/car_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

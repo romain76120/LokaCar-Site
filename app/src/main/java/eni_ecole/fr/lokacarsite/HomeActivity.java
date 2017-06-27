@@ -2,7 +2,6 @@ package eni_ecole.fr.lokacarsite;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.voice.VoiceInteractionSession;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -15,16 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
-import eni_ecole.fr.lokacarsite.ui.car.CarListActivity;
+import eni_ecole.fr.lokacarsite.ui.car.DefaultFragment;
+import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -124,9 +116,9 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_park) {
-            switchFragment(new CarListActivity());
-            Intent intent = new Intent(HomeActivity.this, CarListActivity.class);
-            startActivity(intent);
+           switchFragment(new CarListFragment());
+           // Intent intent = new Intent(HomeActivity.this, CarListActivity.class);
+           // startActivity(intent);
         } else if (id == R.id.nav_client) {
 
         } else if (id == R.id.nav_utilisateur) {

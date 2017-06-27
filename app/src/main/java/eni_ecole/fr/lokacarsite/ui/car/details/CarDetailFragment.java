@@ -1,4 +1,4 @@
-package eni_ecole.fr.lokacarsite.ui.car;
+package eni_ecole.fr.lokacarsite.ui.car.details;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -13,12 +13,7 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 
-/**
- * A fragment representing a single Car detail screen.
- * This fragment is either contained in a {@link CarListActivity}
- * in two-pane mode (on tablets) or a {@link CarDetailActivity}
- * on handsets.
- */
+
 public class CarDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment

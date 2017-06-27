@@ -1,4 +1,4 @@
-package eni_ecole.fr.lokacarsite.ui.car;
+package eni_ecole.fr.lokacarsite.ui.car.details;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,9 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import eni_ecole.fr.lokacarsite.HomeActivity;
 import eni_ecole.fr.lokacarsite.R;
 
 /**
@@ -57,6 +59,7 @@ public class CarDetailActivity extends AppCompatActivity {
             Bundle arguments = new Bundle();
             arguments.putString(CarDetailFragment.ARG_ITEM_ID,
                     getIntent().getStringExtra(CarDetailFragment.ARG_ITEM_ID));
+
             CarDetailFragment fragment = new CarDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
@@ -67,15 +70,11 @@ public class CarDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
         int id = item.getItemId();
         if (id == android.R.id.home) {
-            // This ID represents the Home or Up button. In the case of this
-            // activity, the Up button is shown. For
-            // more details, see the Navigation pattern on Android Design:
-            //
-            // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-            //
-            navigateUpTo(new Intent(this, CarListActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);

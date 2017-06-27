@@ -29,18 +29,12 @@
             android:name=".HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <activity
-            android:name=".ui.car.CarListActivity"
-            android:label="@string/title_car_list"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".ui.car.CarDetailActivity"
+            android:name=".ui.car.details.CarDetailActivity"
             android:label="@string/title_car_detail"
-            android:parentActivityName=".ui.car.CarListActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="eni_ecole.fr.lokacarsite.ui.car.CarListActivity" />
+
         </activity>
     </application>
 

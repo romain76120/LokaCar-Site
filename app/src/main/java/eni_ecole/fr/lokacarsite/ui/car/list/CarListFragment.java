@@ -1,69 +1,65 @@
-package eni_ecole.fr.lokacarsite.ui.car;
+package eni_ecole.fr.lokacarsite.ui.car.list;
+
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import eni_ecole.fr.lokacarsite.R;
+import java.util.List;
 
+import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
 import eni_ecole.fr.lokacarsite.dao.CarBrandDao;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 import eni_ecole.fr.lokacarsite.dao.CarModelDao;
-
-import java.util.List;
+import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailActivity;
+import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailFragment;
 
 /**
- * An activity representing a list of Cars. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link CarDetailActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
+ * A simple {@link Fragment} subclass.
  */
-public class CarListActivity extends AppCompatActivity {
+public class CarListFragment extends Fragment {
 
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
+    private View recyclerView;
+    private FrameLayout frameLayoutContainer;
     private boolean mTwoPane;
 
+    public CarListFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_list);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_car_list, container, false);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setTitle(getTitle());
+        recyclerView = view.findViewById(R.id.car_list);
+        frameLayoutContainer = (FrameLayout) view.findViewById(R.id.car_detail_container);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        return  view;
+    }
 
-        View recyclerView = findViewById(R.id.car_list);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(R.id.car_detail_container) != null) {
+        if (frameLayoutContainer != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -71,6 +67,7 @@ public class CarListActivity extends AppCompatActivity {
             mTwoPane = true;
         }
     }
+
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getAll()));
@@ -86,17 +83,17 @@ public class CarListActivity extends AppCompatActivity {
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public CarItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.car_list_content, parent, false);
-            return new ViewHolder(view);
+            return new CarItemRecyclerViewAdapter.ViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(final ViewHolder holder, int position) {
+        public void onBindViewHolder(final CarItemRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
             holder.mIdView.setText(mValues.get(position).type);
-            
+
             CarModel oneCarModel = new CarModelDao().getFromId(mValues.get(position).idCarModel);
             CarBrand oneCarBrand = new CarBrandDao().getFromId(oneCarModel.idCarBrand);
             holder.mContentView.setText(oneCarBrand.name + " " + oneCarModel.name);
@@ -108,9 +105,10 @@ public class CarListActivity extends AppCompatActivity {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
                         arguments.putInt(CarDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+
                         CarDetailFragment fragment = new CarDetailFragment();
                         fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction()
+                        getFragmentManager().beginTransaction()
                                 .replace(R.id.car_detail_container, fragment)
                                 .commit();
                     } else {
