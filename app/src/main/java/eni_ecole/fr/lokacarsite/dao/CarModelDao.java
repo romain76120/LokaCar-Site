@@ -45,7 +45,6 @@ public class CarModelDao {
             add(new CarModel(3,"A4"));
             add(new CarModel(3,"A5"));
             add(new CarModel(3,"A6"));
-            //cars.add(new Car());
         }
         return carModels;
     }

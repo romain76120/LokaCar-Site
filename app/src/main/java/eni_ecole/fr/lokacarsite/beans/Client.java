@@ -12,20 +12,23 @@ public class Client {
     public String lastname;
     public String mail;
     public String phone;
+    public List<Leasing> leasings;
 
-    public Client(Integer id, String firstname, String lastname, String mail, String phone) {
+    public Client(Integer id, String firstname, String lastname, String mail, String phone, List<Leasing> leasings) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.mail = mail;
         this.phone = phone;
+        this.leasings = leasings;
     }
 
-    public Client(String firstname, String lastname, String mail, String phone) {
+    public Client(String firstname, String lastname, String mail, String phone, List<Leasing> leasings) {
         this.id = -1 ;
         this.firstname = firstname;
         this.lastname = lastname;
         this.mail = mail;
         this.phone = phone;
+        this.leasings = leasings;
     }
 }
