@@ -100,6 +100,7 @@ public class CarListActivity extends AppCompatActivity {
             CarModel oneCarModel = new CarModelDao().getFromId(mValues.get(position).idCarModel);
             CarBrand oneCarBrand = new CarBrandDao().getFromId(oneCarModel.idCarBrand);
             holder.mContentView.setText(oneCarBrand.name + " " + oneCarModel.name);
+            holder.mDetailView.setText(mValues.get(position).fuel);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -124,6 +124,7 @@ public class HomeActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_park) {
+            switchFragment(new CarListActivity());
             Intent intent = new Intent(HomeActivity.this, CarListActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_client) {
