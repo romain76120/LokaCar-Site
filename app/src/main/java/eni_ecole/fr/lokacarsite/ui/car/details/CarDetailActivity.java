@@ -9,14 +9,18 @@ import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import eni_ecole.fr.lokacarsite.HomeActivity;
 import eni_ecole.fr.lokacarsite.R;
+import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.constant.Constant;
+import eni_ecole.fr.lokacarsite.dao.CarDao;
+import eni_ecole.fr.lokacarsite.ui.car.modify.CarModifyActivity;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CarDetailActivity extends AppCompatActivity {
+
+    private Car mItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +29,26 @@ public class CarDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mItem = new CarDao().getFromId(getIntent().getIntExtra(CarDetailFragment.ARG_ITEM_ID,-1));
+        FloatingActionButton fabDelete = (FloatingActionButton) findViewById(R.id.action_delete);
+        fabDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new CarDao().delete(mItem.id);
+                Snackbar.make(view, R.string.action_delete_result, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                CarDetailActivity.this.finish();
+            }
+        });
+        FloatingActionButton fabModify = (FloatingActionButton) findViewById(R.id.action_modify);
+        fabModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                Intent intent = new Intent(CarDetailActivity.this, CarModifyActivity.class);
+                intent.putExtra(Constant.ID_CAR, mItem.id);
+                startActivity(intent);
             }
         });
 
@@ -40,8 +58,8 @@ public class CarDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE)
-        {
+        // Si on est en mode portrait on rebascule sur la liste classique
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
             this.finish();
         }
         // savedInstanceState is non-null when there is fragment state
@@ -57,8 +75,9 @@ public class CarDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(CarDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(CarDetailFragment.ARG_ITEM_ID));
+            arguments.putInt(CarDetailFragment.ARG_ITEM_ID,
+                    getIntent().getIntExtra(CarDetailFragment.ARG_ITEM_ID,-1));
+
 
             CarDetailFragment fragment = new CarDetailFragment();
             fragment.setArguments(arguments);

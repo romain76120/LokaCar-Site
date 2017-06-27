@@ -28,14 +28,13 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.car.details.CarDetailActivity"
             android:label="@string/title_car_detail"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.car.add.CarAddActivity" />
+        <activity android:name=".ui.car.modify.CarModifyActivity"></activity>
     </application>
 
 </manifest>

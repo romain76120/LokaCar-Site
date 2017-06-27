@@ -13,9 +13,20 @@
     <string name="permission_rationale">\"L\'accès aux contacts est requis pour accéder à la complétion de l\'adresse de courriel.\"</string>
     <string name="prompt_email">Utilisateur</string>
     <string name="prompt_password">Mot de passe</string>
-    <string name="string_list_car_status">Loué</string>
+    <string name="string_list_car_status">Louée</string>
     <string name="title_activity_login">Connexion</string>
     <string name="prompt_registration">Immatriculation</string>
     <string name="title_car_list">Voitures</string>
     <string name="title_car_detail">Voiture</string>
+    <string name="action_all">Tous</string>
+    <string name="action_rented">Louée</string>
+    <string name="action_no_rented">Non louée</string>
+    <string name="nav_park">Parc</string>
+    <string name="nav_client">Client</string>
+    <string name="nav_user">Utilisateurs</string>
+    <string name="nav_sales">Vendeurs</string>
+    <string name="nav_disconnection">Déconnexion</string>
+    <string name="action_modify">Modifier</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="action_delete_result">Supprimé</string>
 </resources>

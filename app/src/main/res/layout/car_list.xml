@@ -6,8 +6,8 @@
     android:name="eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="eni_ecole.fr.lokacarsite.ui.car.list.CarListActivity"
+    tools:context="eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment"
     tools:listitem="@layout/car_list_content" />

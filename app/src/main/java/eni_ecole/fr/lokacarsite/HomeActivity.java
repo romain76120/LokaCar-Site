@@ -15,7 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import eni_ecole.fr.lokacarsite.ui.car.DefaultFragment;
+import eni_ecole.fr.lokacarsite.ui.car.add.CarAddActivity;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
 
 
@@ -46,7 +46,7 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        setNavigation(R.id.nav_park);
 //        final EditText editTextQuery = (EditText) findViewById(R.id.edit_text_query);
 //        RequestQueue queue = Volley.newRequestQueue(this);
 //        String url ="https://databases.000webhost.com/db_structure.php?server=1&db=id2071219_lokacarsite&token=4dcd1e90bb652bbe9217ebf8203de76c";
@@ -82,6 +82,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        menu.clear();
         getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
@@ -109,30 +110,48 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    private void setNavigation(Integer idMenu)
+    {
+        switch (idMenu)
+        {
+            case R.id.nav_park :
+                switchFragment(new CarListFragment());
+                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(HomeActivity.this, CarAddActivity.class);
+                        startActivity(intent);
+                    }
+                });
+                break;
+            case R.id.nav_client :
+                switchFragment(new CarListFragment());
+                break;
+            case R.id.nav_user :
+                switchFragment(new CarListFragment());
+                break;
+            case R.id.nav_sales :
+                switchFragment(new CarListFragment());
+                break;
+            case R.id.nav_disconnection:
+                Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+                this.finish();
+                break;
+        }
+
+
+
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_park) {
-           switchFragment(new CarListFragment());
-           // Intent intent = new Intent(HomeActivity.this, CarListActivity.class);
-           // startActivity(intent);
-        } else if (id == R.id.nav_client) {
-
-        } else if (id == R.id.nav_utilisateur) {
-
-
-        }
-        else if (id == R.id.nav_chiffre_affaire) {
-
-
-        }else if (id == R.id.nav_deconnection) {
-            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
-            startActivity(intent);
-        }
-
+        setNavigation(id);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

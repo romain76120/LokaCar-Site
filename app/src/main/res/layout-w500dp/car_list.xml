@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginRight="0dp"
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="eni_ecole.fr.lokacarsite.ui.car.list.CarListActivity">
+    tools:context="eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment">
 
     <!--
     This layout is a two-pane layout for the Cars
@@ -23,8 +23,8 @@
         android:name="eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="eni_ecole.fr.lokacarsite.ui.car.list.CarListActivity"
         tools:listitem="@layout/car_list_content" />

@@ -16,10 +16,8 @@ public class CarDao {
 
     private static ArrayList<Car> cars = null;
 
-    public List<Car> getAll()
-    {
-        if (cars == null)
-        {
+    public List<Car> getAll() {
+        if (cars == null) {
             cars = new ArrayList<Car>();
 //            add(new CarModel(0,"106")); 0
 //            add(new CarModel(0,"206")); 1
@@ -44,35 +42,43 @@ public class CarDao {
 //            add(new CarModel(3,"A4")); 20
 //            add(new CarModel(3,"A5")); 21
 //            add(new CarModel(3,"A6")); 22
-            add(new Car(1,"4546AT44", "Diesel", "Citadine", "Hors ville", new ArrayList<String>(), new Float(58.89 ), true, new ArrayList<Leasing>()));
-            add(new Car(5,"5546ET44", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(78.89 ), false, new ArrayList<Leasing>()));
-            add(new Car(12,"845VFAT", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(49.89 ), false, new ArrayList<Leasing>()));
-            add(new Car(15,"45687FG", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(105.89 ), true, new ArrayList<Leasing>()));
-            add(new Car(21,"HTGRATUI", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(158.89 ), false, new ArrayList<Leasing>()));
+            add(new Car(1, "4546AT44", "Diesel", "Citadine", "Hors ville", new ArrayList<String>(), new Float(58.89), true, new ArrayList<Leasing>()));
+            add(new Car(5, "5546ET44", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(78.89), false, new ArrayList<Leasing>()));
+            add(new Car(12, "845VFAT", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(49.89), false, new ArrayList<Leasing>()));
+            add(new Car(15, "45687FG", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(105.89), true, new ArrayList<Leasing>()));
+            add(new Car(21, "HTGRATUI", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(158.89), false, new ArrayList<Leasing>()));
         }
         return cars;
     }
 
-    public Car getFromId(Integer id)
-    {
-        return getAll().get(id);
-    }
-
-    public List<Car> getFromCriteria(String criteria)
-    {
+    public ArrayList<Car> getRented(Boolean rented) {
         ArrayList<Car> carSelection = new ArrayList<Car>();
-        for (Car car: getAll())
-        {
-            if (car.criteria.equals(criteria))
-            {
+        for (Car car : getAll()) {
+            if (car.isLeasing == rented) {
                 carSelection.add(car);
             }
         }
         return carSelection;
     }
 
-    public void set(Integer id, Car car)
-    {
+    public Car getFromId(Integer id) {
+        if (id >= 0 && id < getAll().size())
+            return getAll().get(id);
+        else
+            return null;
+    }
+
+    public List<Car> getFromCriteria(String criteria) {
+        ArrayList<Car> carSelection = new ArrayList<Car>();
+        for (Car car : getAll()) {
+            if (car.criteria.equals(criteria)) {
+                carSelection.add(car);
+            }
+        }
+        return carSelection;
+    }
+
+    public void set(Integer id, Car car) {
         Car mCar = getAll().get(id);
         mCar.idCarModel = car.idCarModel;
         mCar.registration = car.registration;
@@ -85,17 +91,14 @@ public class CarDao {
         mCar.leasings = car.leasings;
     }
 
-    public Car add(Car car){
+    public Car add(Car car) {
         car.id = getAll().size();
         getAll().add(car);
         return car;
     }
 
-    public void delete(Integer id){
-        getAll().remove(id);
-        for (int i = 0; i < getAll().size(); i++)
-        {
-            getAll().get(i).id = i;
-        }
+    public void delete(int id) {
+        getAll();
+        cars.remove(id);
     }
 }

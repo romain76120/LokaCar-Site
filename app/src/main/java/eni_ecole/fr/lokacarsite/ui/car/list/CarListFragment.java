@@ -3,17 +3,16 @@ package eni_ecole.fr.lokacarsite.ui.car.list;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.LinearGradient;
-import android.graphics.Shader;
-import android.graphics.drawable.PaintDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -25,11 +24,13 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarBrandDao;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 import eni_ecole.fr.lokacarsite.dao.CarModelDao;
 import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailActivity;
 import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailFragment;
+import eni_ecole.fr.lokacarsite.ui.car.modify.CarModifyActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,20 +40,33 @@ public class CarListFragment extends Fragment {
     private View recyclerView;
     private FrameLayout frameLayoutContainer;
     private boolean mTwoPane;
-    public View lastItemSelected = null  ;
-//    private PaintDrawable paint;
+    public View lastViewSelected = null;
+
+    // Pour gérer le réaffichage de la liste lorsqu'on supprime l'élément
+    public Car lastItemSelected = null;
+    private int lastFilterSelected;
 
     public CarListFragment() {
         // Required empty public constructor
+        setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        lastFilterSelected = R.id.action_all;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_car_list, container, false);
+        View view = inflater.inflate(R.layout.car_list, container, false);
 
+        setHasOptionsMenu(true);
+        lastFilterSelected = R.id.action_all;
         recyclerView = view.findViewById(R.id.car_list);
         frameLayoutContainer = (FrameLayout) view.findViewById(R.id.car_detail_container);
 
@@ -81,8 +95,7 @@ public class CarListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+
 
         if (frameLayoutContainer != null) {
             // The detail container view will be present only in the
@@ -93,9 +106,72 @@ public class CarListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        assert recyclerView != null;
+        setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.car_list, menu);
+        if (mTwoPane)
+            inflater.inflate(R.menu.item, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        switch (id) {
+            case R.id.action_all:
+                lastFilterSelected = id;
+                break;
+            case R.id.action_rented:
+                lastFilterSelected = id;
+                break;
+            case R.id.action_no_rented:
+                lastFilterSelected = id;
+                break;
+            case R.id.action_delete:
+                new CarDao().delete(lastItemSelected.id);
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.action_delete_result, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.action_modify:
+                Intent intent = new Intent(getActivity(), CarModifyActivity.class);
+                intent.putExtra(Constant.ID_CAR, lastItemSelected.id);
+                startActivity(intent);
+                break;
+        }
+        setupRecyclerView((RecyclerView) recyclerView);
+
+        return super.onOptionsItemSelected(item);
+    }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getAll()));
+        switch (lastFilterSelected) {
+            case R.id.action_all:
+                recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getAll()));
+                break;
+            case R.id.action_rented:
+                recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getRented(true)));
+                break;
+            case R.id.action_no_rented:
+                recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getRented(false)));
+                break;
+            default:
+                recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getAll()));
+                break;
+        }
+
     }
 
     public class CarItemRecyclerViewAdapter
@@ -135,10 +211,12 @@ public class CarListFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
-                        if (lastItemSelected != null)
-                            lastItemSelected.setSelected(false);
+                        // Déselection de l'ancien bouton
+                        if (lastViewSelected != null)
+                            lastViewSelected.setSelected(false);
                         holder.mView.setSelected(true);
-                        lastItemSelected = holder.mView;
+                        lastViewSelected = holder.mView;
+                        lastItemSelected = holder.mItem;
                         Bundle arguments = new Bundle();
                         arguments.putInt(CarDetailFragment.ARG_ITEM_ID, holder.mItem.id);
 
@@ -149,7 +227,7 @@ public class CarListFragment extends Fragment {
                                 .commit();
                     } else {
                         Context context = v.getContext();
-                        Intent intent = new Intent(context, CarDetailActivity.class);
+                        Intent intent = new Intent(getActivity(), CarDetailActivity.class);
                         intent.putExtra(CarDetailFragment.ARG_ITEM_ID, holder.mItem.id);
 
                         context.startActivity(intent);
@@ -157,6 +235,7 @@ public class CarListFragment extends Fragment {
                 }
             });
         }
+
 
         @Override
         public int getItemCount() {

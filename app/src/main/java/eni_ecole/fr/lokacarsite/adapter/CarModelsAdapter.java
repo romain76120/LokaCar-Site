@@ -1,7 +1,6 @@
 package eni_ecole.fr.lokacarsite.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -15,10 +14,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import eni_ecole.fr.lokacarsite.constent.Constant;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
-import eni_ecole.fr.lokacarsite.dao.CarModelDao;
 
 /**
  * Created by phili on 26/06/2017.

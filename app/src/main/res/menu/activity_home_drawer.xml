@@ -3,20 +3,21 @@
 
     <group android:checkableBehavior="single">
         <item
+
             android:id="@+id/nav_park"
-            android:title="Parc" />
+            android:title="@string/nav_park" />
         <item
             android:id="@+id/nav_client"
-            android:title="Client" />
+            android:title="@string/nav_client" />
         <item
-            android:id="@+id/nav_utilisateur"
-            android:title="Utilisateur" />
+            android:id="@+id/nav_user"
+            android:title="@string/nav_user" />
         <item
-            android:id="@+id/nav_chiffre_affaire"
-            android:title="Chiffre d'Affaire" />
+            android:id="@+id/nav_sales"
+            android:title="@string/nav_sales" />
         <item
-            android:id="@+id/nav_deconnection"
-            android:title="Se deconnecter" />
+            android:id="@+id/nav_disconnection"
+            android:title="@string/nav_disconnection" />
     </group>
 
     <!--<item android:title="Communicate">-->

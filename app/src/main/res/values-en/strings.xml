@@ -18,4 +18,15 @@
     <string name="prompt_registration">Registration</string>
     <string name="title_car_detail">Car</string>
     <string name="title_car_list">Cars</string>
+    <string name="action_all">All</string>
+    <string name="action_rented">Rented</string>
+    <string name="action_no_rented">No rented</string>
+    <string name="nav_park">Cars</string>
+    <string name="nav_client">Client</string>
+    <string name="nav_user">Users</string>
+    <string name="nav_sales">Sales</string>
+    <string name="nav_disconnection">Disconnect</string>
+    <string name="action_modify">Modify</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_result">Deleted</string>
 </resources>

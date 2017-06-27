@@ -26,4 +26,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="action_all">All</string>
+    <string name="action_rented">Rented</string>
+    <string name="action_no_rented">No rented</string>
+    <string name="nav_park">Cars</string>
+    <string name="nav_client">Client</string>
+    <string name="nav_user">Users</string>
+    <string name="nav_sales">Sales</string>
+    <string name="nav_disconnection">Disconnect</string>
+
+    <string name="title_activity_car_add">CarAddActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="action_modify">Modify</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_delete_result">Deleted</string>
 </resources>
