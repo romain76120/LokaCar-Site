@@ -16,7 +16,12 @@ import android.widget.TextView;
 
 import eni_ecole.fr.lokacarsite.R;
 
-import eni_ecole.fr.lokacarsite.ui.car.dummy.DummyContent;
+import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.CarBrand;
+import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.dao.CarBrandDao;
+import eni_ecole.fr.lokacarsite.dao.CarDao;
+import eni_ecole.fr.lokacarsite.dao.CarModelDao;
 
 import java.util.List;
 
@@ -68,15 +73,15 @@ public class CarListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(DummyContent.ITEMS));
+        recyclerView.setAdapter(new CarItemRecyclerViewAdapter(new CarDao().getAll()));
     }
 
-    public class SimpleItemRecyclerViewAdapter
-            extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+    public class CarItemRecyclerViewAdapter
+            extends RecyclerView.Adapter<CarItemRecyclerViewAdapter.ViewHolder> {
 
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<Car> mValues;
 
-        public SimpleItemRecyclerViewAdapter(List<DummyContent.DummyItem> items) {
+        public CarItemRecyclerViewAdapter(List<Car> items) {
             mValues = items;
         }
 
@@ -90,15 +95,18 @@ public class CarListActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(final ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).id);
-            holder.mContentView.setText(mValues.get(position).content);
+            holder.mIdView.setText(mValues.get(position).type);
+            
+            CarModel oneCarModel = new CarModelDao().getFromId(mValues.get(position).idCarModel);
+            CarBrand oneCarBrand = new CarBrandDao().getFromId(oneCarModel.idCarBrand);
+            holder.mContentView.setText(oneCarBrand.name + " " + oneCarModel.name);
 
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mTwoPane) {
                         Bundle arguments = new Bundle();
-                        arguments.putString(CarDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                        arguments.putInt(CarDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                         CarDetailFragment fragment = new CarDetailFragment();
                         fragment.setArguments(arguments);
                         getSupportFragmentManager().beginTransaction()
@@ -124,13 +132,15 @@ public class CarListActivity extends AppCompatActivity {
             public final View mView;
             public final TextView mIdView;
             public final TextView mContentView;
-            public DummyContent.DummyItem mItem;
+            public final TextView mDetailView;
+            public Car mItem;
 
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
                 mIdView = (TextView) view.findViewById(R.id.id);
                 mContentView = (TextView) view.findViewById(R.id.content);
+                mDetailView = (TextView) view.findViewById(R.id.details);
             }
 
             @Override
