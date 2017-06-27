@@ -15,4 +15,5 @@
     <string name="prompt_password">Password</string>
     <string name="string_list_car_status">Rented</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="prompt_registration">Registration</string>
 </resources>

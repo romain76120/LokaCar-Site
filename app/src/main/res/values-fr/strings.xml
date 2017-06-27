@@ -15,4 +15,5 @@
     <string name="prompt_password">Mot de passe</string>
     <string name="string_list_car_status">Loué</string>
     <string name="title_activity_login">Connexion</string>
+    <string name="prompt_registration">Immatriculation</string>
 </resources>

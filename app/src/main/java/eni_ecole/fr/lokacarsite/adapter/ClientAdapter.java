@@ -57,7 +57,6 @@ public class ClientAdapter extends ArrayAdapter<Client> {
 
         Client oneClient;
 
-        ClientDao clientDao;
 
         TextView listClientLastname;
         TextView listClientFirstname;
@@ -65,9 +64,8 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         listClientLastname = (TextView) view.findViewById(R.id.list_client_lastname);
         listClientFirstname = (TextView) view.findViewById(R.id.list_client_firstname);
 
-        clientDao = new ClientDao();
 
-        oneClient = clientDao.getFromId(position);
+        oneClient = clients.get(position);
 
         listClientLastname.setText(oneClient.lastname);
         listClientFirstname.setText(oneClient.firstname);
