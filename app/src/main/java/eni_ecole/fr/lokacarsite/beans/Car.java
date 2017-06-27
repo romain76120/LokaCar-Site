@@ -42,4 +42,7 @@ public class Car {
         this.isLeasing = false;
         this.leasings = leasings;
     }
+
+    public Car(int i, String s) {
+    }
 }

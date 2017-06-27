@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:title="Acceuil" />
+            android:id="@+id/nav_park"
+            android:title="Parc" />
         <item
-            android:id="@+id/nav_gallery"
-            android:title="Locations" />
+            android:id="@+id/nav_client"
+            android:title="Client" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="Agence" />
+            android:id="@+id/nav_utilisateur"
+            android:title="Utilisateur" />
         <item
-            android:id="@+id/nav_manage"
-            android:title="Paramètre" />
+            android:id="@+id/nav_chiffre_affaire"
+            android:title="Chiffre d'Affaire" />
         <item
             android:id="@+id/nav_deconnection"
             android:title="Se deconnecter" />

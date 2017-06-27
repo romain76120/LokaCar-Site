@@ -1,5 +1,6 @@
 package eni_ecole.fr.lokacarsite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.service.voice.VoiceInteractionSession;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import eni_ecole.fr.lokacarsite.ui.car.CarListActivity;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -120,14 +123,21 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_park) {
+            Intent intent = new Intent(HomeActivity.this, CarListActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_client) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_utilisateur) {
 
-        } else if (id == R.id.nav_manage) {
 
+        }
+        else if (id == R.id.nav_chiffre_affaire) {
+
+
+        }else if (id == R.id.nav_deconnection) {
+            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+            startActivity(intent);
         }
 
 
