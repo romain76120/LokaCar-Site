@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Leasing {
     public Integer id;
-    public Integer idCar;
-    public Integer idClient;
+    public Car car;
+    public Client client;
     public String startDate;
     public String endDate;
     public List<String> photoBefore;
@@ -18,10 +18,10 @@ public class Leasing {
     public String realEndDate;
     public String priceTotal;
 
-    public Leasing(Integer id, Integer idCar, Integer idClient, String startDate, String endDate, List<String> photoBefore, List<String> photoAfter, String realStartDate, String realEndDate, String priceTotal) {
+    public Leasing(Integer id, Car car, Client client, String startDate, String endDate, List<String> photoBefore, List<String> photoAfter, String realStartDate, String realEndDate, String priceTotal) {
         this.id = id;
-        this.idCar = idCar;
-        this.idClient = idClient;
+        this.car = car;
+        this.client = client;
         this.startDate = startDate;
         this.endDate = endDate;
         this.photoBefore = photoBefore;
@@ -31,10 +31,10 @@ public class Leasing {
         this.priceTotal = priceTotal;
     }
 
-    public Leasing(Integer idCar, Integer idClient, String startDate, String endDate, List<String> photoBefore, List<String> photoAfter, String realStartDate, String realEndDate, String priceTotal) {
+    public Leasing(Car car, Client client, String startDate, String endDate, List<String> photoBefore, List<String> photoAfter, String realStartDate, String realEndDate, String priceTotal) {
         this.id = -1;
-        this.idCar = idCar;
-        this.idClient = idClient;
+        this.car = car;
+        this.client = client;
         this.startDate = startDate;
         this.endDate = endDate;
         this.photoBefore = photoBefore;

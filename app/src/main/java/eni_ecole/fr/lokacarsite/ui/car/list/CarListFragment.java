@@ -3,6 +3,7 @@ package eni_ecole.fr.lokacarsite.ui.car.list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -284,7 +285,7 @@ public class CarListFragment extends Fragment {
                 break;
             case R.id.action_menu_save:
                 EventBus.getDefault().post(new QueryEvent(Constant.ON_SAVE_CAR));
-                EventBus.getDefault().post(new QueryEvent(Constant.DETAIL_CAR));
+
                 break;
             case R.id.action_menu_cancel:
                 EventBus.getDefault().post(new QueryEvent(Constant.DETAIL_CAR));
@@ -457,6 +458,44 @@ public class CarListFragment extends Fragment {
         }
 
 
+    }
+
+    private class InsertOrUpdate extends AsyncTask<Void, Integer, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            if (articleId == -1) {
+
+
+                articleDAL.addArticle(nouvelArticle);
+            }
+            else
+            {
+                articleDAL.setArticle(articleId, nouvelArticle);
+            }
+            return getString(R.string.return_dao);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            enableAll(s);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            disableAll();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+//            ProgressBar progress = (ProgressBar) findViewById(R.id.progress);
+//            progress.setProgress(values[0]);
+//            progress.setMax(100);
+        }
     }
 
 

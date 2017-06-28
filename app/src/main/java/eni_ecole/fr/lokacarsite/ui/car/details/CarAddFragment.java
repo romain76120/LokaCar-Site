@@ -24,7 +24,7 @@ public class CarAddFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-
+    Car mItem;
     /**
      * The dummy content this fragment is presenting.
      */
@@ -58,8 +58,9 @@ public class CarAddFragment extends Fragment {
 
     public void onEvent(QueryEvent event) {
         if (event.getAction() == Constant.ON_SAVE_CAR){
-            // TODO
 
+            // TODO
+            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL_CAR, -1, mItem));
         }
     }
 

@@ -6,18 +6,18 @@ package eni_ecole.fr.lokacarsite.beans;
 
 public class CarModel {
     public Integer id;
-    public Integer idCarBrand;
+    public CarBrand carBrand;
     public String name;
 
-    public CarModel(Integer id, Integer idCarBrand, String name) {
+    public CarModel(Integer id, CarBrand carBrand, String name) {
         this.id = id;
         this.name = name;
-        this.idCarBrand = idCarBrand;
+        this.carBrand = carBrand;
     }
 
-    public CarModel(Integer idCarBrand, String name) {
+    public CarModel(CarBrand carBrand, String name) {
         this.id = -1;
         this.name = name;
-        this.idCarBrand = idCarBrand;
+        this.carBrand = carBrand;
     }
 }

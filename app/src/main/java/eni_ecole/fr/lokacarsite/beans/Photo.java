@@ -6,24 +6,21 @@ package eni_ecole.fr.lokacarsite.beans;
 
 public class Photo {
     public Integer id;
-    public Integer idCar;
-    public Integer idLeasingBefore;
-    public Integer idLeasingAfter;
+    public Car car;
+    public Boolean leasingBefore;
     public String name;
 
-    public Photo(Integer id, Integer idCar, Integer idLeasingBefore, Integer idLeasingAfter, String name) {
+    public Photo(Integer id, Car car, Boolean leasingBefore, Integer idLeasingAfter, String name) {
         this.id = id;
-        this.idCar = idCar;
-        this.idLeasingBefore = idLeasingBefore;
-        this.idLeasingAfter = idLeasingAfter;
+        this.car = car;
+        this.leasingBefore = leasingBefore;
         this.name = name;
     }
 
-    public Photo(Integer idCar, Integer idLeasingBefore, Integer idLeasingAfter, String name) {
+    public Photo(Car car, Boolean leasingBefore, Integer idLeasingAfter, String name) {
         this.id = -1;
-        this.idCar = idCar;
-        this.idLeasingBefore = idLeasingBefore;
-        this.idLeasingAfter = idLeasingAfter;
+        this.car = car;
+        this.leasingBefore = leasingBefore;
         this.name = name;
     }
 }

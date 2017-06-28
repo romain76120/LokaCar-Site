@@ -84,7 +84,7 @@ public class CarModifyFragment extends Fragment {
     public void onEvent(QueryEvent event) {
         if (event.getAction() == Constant.ON_SAVE_CAR){
             // TODO
-
+            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL_CAR, mItem.id, mItem));
         }
     }
 }

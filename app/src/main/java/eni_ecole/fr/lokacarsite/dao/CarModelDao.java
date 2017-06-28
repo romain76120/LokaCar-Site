@@ -1,87 +1,106 @@
 package eni_ecole.fr.lokacarsite.dao;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.constant.Constant;
 
 /**
  * Created by pbontempi2017 on 26/06/2017.
  */
 
-public class CarModelDao {
-    private static ArrayList<CarModel> carModels = null;
+public class CarModelDao extends ObjectDao<CarModel>{
+    private final static String QUERY_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
+            + "CARMODEL ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "ID_CARBRAND INTEGER"
+            + "NAME TEXT)";
 
-    public List<CarModel> getAll()
-    {
-        if (carModels == null)
-        {
-            carModels = new ArrayList<CarModel>();
+
+    private final static String TABLE_NAME = "CARMODEL";
+    private final static String OREDERED_COLUMN_NAME = "NAME";
+    private final static String ID_COLUMN_NAME = "_ID";
+
+    private CarBrandDao carBrandDao;
+
+    public CarModelDao(Context context) {
+        super(CarModel.class, context, Constant.DATABASE_NAME, Constant.DATABASE_VERSION);
+        carBrandDao = new CarBrandDao(context);
+    }
+
+
+    @Override
+    protected String getQueryCreateTable() {
+        return QUERY_CREATE_TABLE;
+    }
+
+    @Override
+    protected String getTableName() {
+        return TABLE_NAME;
+    }
+
+    @Override
+    protected String getOrderedColumnName() {
+        return OREDERED_COLUMN_NAME;
+    }
+
+    @Override
+    protected String getIdColumnName() {
+        return ID_COLUMN_NAME;
+    }
+
+
+    @Override
+    protected ContentValues constructObjectDB(CarModel object) {
+        ContentValues values = new ContentValues();
+        values.put("NAME", object.name);
+        values.put("ID_CARBRAND", object.carBrand.id);
+        return values;
+    }
+
+    @Override
+    protected CarModel constructObjectArray(Cursor cursor) {
+        Integer id = cursor.getInt(cursor.getColumnIndex("_ID"));
+        String name = cursor.getString(cursor.getColumnIndex("NAME"));
+        Integer idCarBrand = cursor.getInt(cursor.getColumnIndex("ID_CARBRAND"));
+
+        CarBrand carBrand = carBrandDao.get(idCarBrand);
+        return new CarModel(id, carBrand, name);
+    }
+
+
 //            carBrands.add(new CarBrand(0,"Peugeot"));
 //            carBrands.add(new CarBrand(0,"Renault"));
 //            carBrands.add(new CarBrand(0,"Citroën"));
 //            carBrands.add(new CarBrand(0,"Audi"));
-            add(new CarModel(0,"106"));
-            add(new CarModel(0,"206"));
-            add(new CarModel(0,"207"));
-            add(new CarModel(0,"208"));
-            add(new CarModel(0,"307"));
-            add(new CarModel(0,"308"));
-            add(new CarModel(0,"407"));
-            add(new CarModel(0,"408"));
-            add(new CarModel(0,"5008"));
-            add(new CarModel(1,"Clio"));
-            add(new CarModel(1,"Mégane"));
-            add(new CarModel(1,"Scénic"));
-            add(new CarModel(2,"C1"));
-            add(new CarModel(2,"C2"));
-            add(new CarModel(2,"C3"));
-            add(new CarModel(2,"C4"));
-            add(new CarModel(2,"C5"));
-            add(new CarModel(3,"A1"));
-            add(new CarModel(3,"A2"));
-            add(new CarModel(3,"A3"));
-            add(new CarModel(3,"A4"));
-            add(new CarModel(3,"A5"));
-            add(new CarModel(3,"A6"));
-        }
-        return carModels;
-    }
+//            add(new CarModel(0,"106"));
+//            add(new CarModel(0,"206"));
+//            add(new CarModel(0,"207"));
+//            add(new CarModel(0,"208"));
+//            add(new CarModel(0,"307"));
+//            add(new CarModel(0,"308"));
+//            add(new CarModel(0,"407"));
+//            add(new CarModel(0,"408"));
+//            add(new CarModel(0,"5008"));
+//            add(new CarModel(1,"Clio"));
+//            add(new CarModel(1,"Mégane"));
+//            add(new CarModel(1,"Scénic"));
+//            add(new CarModel(2,"C1"));
+//            add(new CarModel(2,"C2"));
+//            add(new CarModel(2,"C3"));
+//            add(new CarModel(2,"C4"));
+//            add(new CarModel(2,"C5"));
+//            add(new CarModel(3,"A1"));
+//            add(new CarModel(3,"A2"));
+//            add(new CarModel(3,"A3"));
+//            add(new CarModel(3,"A4"));
+//            add(new CarModel(3,"A5"));
+//            add(new CarModel(3,"A6"));
 
-    public CarModel getFromId(Integer id)
-    {
-        return getAll().get(id);
-    }
-
-    public List<CarModel> getFromIdCarBrand(Integer idCarBrand)
-    {
-        List<CarModel> mCarModel = new ArrayList<CarModel>();
-        for (CarModel car: getAll()) {
-            if (car.idCarBrand == idCarBrand)
-                mCarModel.add(car);
-        }
-        return mCarModel;
-    }
-
-    public void set(Integer id, CarModel carModel)
-    {
-        CarModel mCarModel = getAll().get(id);
-        mCarModel.name = carModel.name;
-        mCarModel.idCarBrand = carModel.idCarBrand;
-    }
-
-    public CarModel add(CarModel carModel){
-        carModel.id = getAll().size();
-        getAll().add(carModel);
-        return carModel;
-    }
-
-    public void delete(Integer id){
-        getAll().remove(id);
-        for (int i = 0; i < getAll().size(); i++)
-        {
-            getAll().get(i).id = i;
-        }
-    }
 }

@@ -8,7 +8,9 @@ import eni_ecole.fr.lokacarsite.beans.User;
 
 public class Constant {
 
+    public final static String DATABASE_NAME = "LokaCarSite.db";
 
+    public final static int DATABASE_VERSION = 1;
 
     // utilisateur connecté
     public static User user = null;

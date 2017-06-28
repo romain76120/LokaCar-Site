@@ -8,22 +8,24 @@ import java.util.List;
 
 public class Car {
     public Integer id;
-    public Integer idCarModel;
+    public CarModel carModel;
+    public Agency agency;
     public String registration; // Immatriculation
     public String fuel;
-    public Integer idCategory; // suv, berline...
+    public Category category; // suv, berline...
     public String criteria;
-    public List<String> photos;
+    public List<Photo> photos;
     public Float price;
     public List<Leasing> leasings;
     public Boolean isLeasing;
 
-    public Car(Integer id, Integer idCarModel, String registration, String fuel, Integer idCategrory, String criteria, List<String> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
+    public Car(Integer id, Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = id;
-        this.idCarModel = idCarModel;
+        this.agency = agency;
+        this.carModel = carModel;
         this.registration = registration;
         this.fuel = fuel;
-        this.idCategory = idCategrory;
+        this.category = category;
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
@@ -31,12 +33,13 @@ public class Car {
         this.leasings = leasings;
     }
 
-    public Car(Integer idCarModel, String registration, String fuel, Integer idCategrory, String criteria, List<String> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
+    public Car(Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = -1;
-        this.idCarModel = idCarModel;
+        this.agency = agency;
+        this.carModel = carModel;
         this.registration = registration;
         this.fuel = fuel;
-        this.idCategory = idCategrory;
+        this.category = category;
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
