@@ -17,7 +17,9 @@ import android.widget.TextView;
 import eni_ecole.fr.lokacarsite.HomeActivity;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.Category;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
+import eni_ecole.fr.lokacarsite.dao.CategoryDao;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
 import eni_ecole.fr.lokacarsite.ui.car.modify.CarModifyActivity;
 
@@ -50,10 +52,12 @@ public class CarDetailFragment extends Fragment {
             // to load content from a content provider.
             mItem = new CarDao().getFromId(getArguments().getInt(ARG_ITEM_ID));
 
+
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.type);
+                String mCategory = new CategoryDao().getFromId(mItem.idCategory).name;
+                appBarLayout.setTitle(mCategory);
             }
         }
     }

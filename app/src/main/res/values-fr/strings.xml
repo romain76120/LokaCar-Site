@@ -29,4 +29,5 @@
     <string name="action_modify">Modifier</string>
     <string name="action_delete">Supprimer</string>
     <string name="action_delete_result">Supprimé</string>
+    <string name="undo_delete">Undo</string>
 </resources>

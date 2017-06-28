@@ -319,8 +319,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
-            UserDao userDao = new UserDao();
-            User user = userDao.getUser(mEmail, mPassword);
+            User user = new UserDao().getUser(mEmail, mPassword);
             if(user != null){
                 return true;
             }
@@ -342,7 +341,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-            showProgress(false);
+
 
             if (success) {
                 Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
@@ -351,6 +350,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+            showProgress(false);
         }
 
         @Override

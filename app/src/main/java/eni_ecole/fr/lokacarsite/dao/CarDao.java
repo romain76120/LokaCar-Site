@@ -42,11 +42,11 @@ public class CarDao {
 //            add(new CarModel(3,"A4")); 20
 //            add(new CarModel(3,"A5")); 21
 //            add(new CarModel(3,"A6")); 22
-            add(new Car(1, "4546AT44", "Diesel", "Citadine", "Hors ville", new ArrayList<String>(), new Float(58.89), true, new ArrayList<Leasing>()));
-            add(new Car(5, "5546ET44", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(78.89), false, new ArrayList<Leasing>()));
-            add(new Car(12, "845VFAT", "Essence", "Citadine", "Ville", new ArrayList<String>(), new Float(49.89), false, new ArrayList<Leasing>()));
-            add(new Car(15, "45687FG", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(105.89), true, new ArrayList<Leasing>()));
-            add(new Car(21, "HTGRATUI", "Diesel", "Berline", "Hors ville", new ArrayList<String>(), new Float(158.89), false, new ArrayList<Leasing>()));
+            add(new Car(1, "4546AT44", "Diesel", 1, "Hors ville", new ArrayList<String>(), new Float(58.89), true, new ArrayList<Leasing>()));
+            add(new Car(5, "5546ET44", "Essence", 1, "Ville", new ArrayList<String>(), new Float(78.89), false, new ArrayList<Leasing>()));
+            add(new Car(12, "845VFAT", "Essence", 1, "Ville", new ArrayList<String>(), new Float(49.89), false, new ArrayList<Leasing>()));
+            add(new Car(15, "45687FG", "Diesel", 2, "Hors ville", new ArrayList<String>(), new Float(105.89), true, new ArrayList<Leasing>()));
+            add(new Car(21, "HTGRATUI", "Diesel", 2, "Hors ville", new ArrayList<String>(), new Float(158.89), false, new ArrayList<Leasing>()));
         }
         return cars;
     }
@@ -83,7 +83,7 @@ public class CarDao {
         mCar.idCarModel = car.idCarModel;
         mCar.registration = car.registration;
         mCar.fuel = car.fuel;
-        mCar.type = car.type;
+        mCar.idCategory = car.idCategory;
         mCar.criteria = car.criteria;
         mCar.photos = car.photos;
         mCar.price = car.price;

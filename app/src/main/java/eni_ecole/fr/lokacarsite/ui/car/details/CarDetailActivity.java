@@ -21,6 +21,7 @@ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 public class CarDetailActivity extends AppCompatActivity {
 
     private Car mItem;
+    public static int ON_DELETE = 648;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +35,17 @@ public class CarDetailActivity extends AppCompatActivity {
         fabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new CarDao().delete(mItem.id);
-                Snackbar.make(view, R.string.action_delete_result, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent deleteOrder = new Intent();
+                deleteOrder.putExtra(Constant.ID_CAR, mItem.id);
+                setResult(ON_DELETE, deleteOrder);
                 CarDetailActivity.this.finish();
+
             }
         });
         FloatingActionButton fabModify = (FloatingActionButton) findViewById(R.id.action_modify);
         fabModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Intent intent = new Intent(CarDetailActivity.this, CarModifyActivity.class);
                 intent.putExtra(Constant.ID_CAR, mItem.id);
                 startActivity(intent);

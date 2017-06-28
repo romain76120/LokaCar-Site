@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -24,10 +25,12 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.beans.Category;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarBrandDao;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 import eni_ecole.fr.lokacarsite.dao.CarModelDao;
+import eni_ecole.fr.lokacarsite.dao.CategoryDao;
 import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailActivity;
 import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailFragment;
 import eni_ecole.fr.lokacarsite.ui.car.modify.CarModifyActivity;
@@ -37,6 +40,7 @@ import eni_ecole.fr.lokacarsite.ui.car.modify.CarModifyActivity;
  */
 public class CarListFragment extends Fragment {
 
+    private static final int REQUEST_CODE = 4542;
     private View recyclerView;
     private FrameLayout frameLayoutContainer;
     private boolean mTwoPane;
@@ -70,24 +74,6 @@ public class CarListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.car_list);
         frameLayoutContainer = (FrameLayout) view.findViewById(R.id.car_detail_container);
 
-//        ShapeDrawable.ShaderFactory shaderFactory = new ShapeDrawable.ShaderFactory() {
-//            @Override
-//            public Shader resize(int width, int height) {
-//                LinearGradient linearGradient = new LinearGradient(0, 0, width, 0,
-//                        new int[] {
-//                                R.color.colorPrimaryDark,
-//                                android.R.color.white }, //substitute the correct colors for these
-//                        new float[] {
-//                                0, 0.05f },
-//                        Shader.TileMode.MIRROR);
-//                return linearGradient;
-//            }
-//        };
-//
-//        paint = new PaintDrawable();
-//        paint.setShape(new RectShape());
-//        paint.setShaderFactory(shaderFactory);
-
         return view;
     }
 
@@ -96,12 +82,8 @@ public class CarListFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-
+        // Si on est en paysage et qu'on a la liste + le détail
         if (frameLayoutContainer != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
             mTwoPane = true;
         }
     }
@@ -123,6 +105,27 @@ public class CarListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE){
+            if( resultCode == CarDetailActivity.ON_DELETE)
+            {
+                executeDeleteOrder(data.getIntExtra(Constant.ID_CAR, -1));
+            }
+        }
+    }
+
+    private void executeDeleteOrder(int id)
+    {
+        // mise en cache des dernières informations
+        CarDao carDao = new CarDao();
+        Car mItem = carDao.getFromId(id);
+        carDao.delete(id);
+        Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.action_delete_result, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo_delete, new UndoDeleteCarListener(mItem)).show();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -141,9 +144,7 @@ public class CarListFragment extends Fragment {
                 lastFilterSelected = id;
                 break;
             case R.id.action_delete:
-                new CarDao().delete(lastItemSelected.id);
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.action_delete_result, Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                executeDeleteOrder(lastItemSelected.id);
                 break;
             case R.id.action_modify:
                 Intent intent = new Intent(getActivity(), CarModifyActivity.class);
@@ -194,10 +195,13 @@ public class CarListFragment extends Fragment {
         @Override
         public void onBindViewHolder(final CarItemRecyclerViewAdapter.ViewHolder holder, int position) {
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(mValues.get(position).type);
 
-            CarModel oneCarModel = new CarModelDao().getFromId(mValues.get(position).idCarModel);
+            CarModel oneCarModel = new CarModelDao().getFromId(holder.mItem.idCarModel);
             CarBrand oneCarBrand = new CarBrandDao().getFromId(oneCarModel.idCarBrand);
+            Category oneCategory = new CategoryDao().getFromId(holder.mItem.idCategory);
+
+            holder.mIdView.setText(oneCategory.name);
+
             holder.mContentView.setText(oneCarBrand.name + " " + oneCarModel.name);
             holder.mDetailView.setText(mValues.get(position).fuel);
 
@@ -230,7 +234,7 @@ public class CarListFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), CarDetailActivity.class);
                         intent.putExtra(CarDetailFragment.ARG_ITEM_ID, holder.mItem.id);
 
-                        context.startActivity(intent);
+                        startActivityForResult(intent, REQUEST_CODE);
                     }
                 }
             });
@@ -263,6 +267,21 @@ public class CarListFragment extends Fragment {
             public String toString() {
                 return super.toString() + " '" + mContentView.getText() + "'";
             }
+        }
+    }
+
+    public class UndoDeleteCarListener implements View.OnClickListener {
+        Car mItem;
+
+        public UndoDeleteCarListener(Car mItem) {
+            this.mItem = mItem;
+        }
+
+        @Override
+        public void onClick(View v) {
+            mItem.id = -1;
+            new CarDao().add(mItem);
+            setupRecyclerView((RecyclerView) recyclerView);
         }
     }
 }

@@ -8,4 +8,5 @@ public class Constant {
 
     public static String ID_CAR_BRAND = "idcarbrand";
     public static String ID_CAR = "idcar";
+
 }
