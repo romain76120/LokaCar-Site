@@ -1,22 +1,25 @@
 package eni_ecole.fr.lokacarsite.ui.car.details;
 
 import android.app.Activity;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 import eni_ecole.fr.lokacarsite.dao.CategoryDao;
+import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
-
-public class CarDetailFragment extends Fragment {
+public class CarModifyFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -31,7 +34,7 @@ public class CarDetailFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CarDetailFragment() {
+    public CarModifyFragment() {
     }
 
     @Override
@@ -47,8 +50,7 @@ public class CarDetailFragment extends Fragment {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                String mCategory = new CategoryDao().getFromId(mItem.idCategory).name;
-                appBarLayout.setTitle(mCategory);
+                appBarLayout.setTitle("Modification du véhicule");
             }
         }
     }
@@ -65,4 +67,24 @@ public class CarDetailFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        super.onDestroy();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    public void onEvent(QueryEvent event) {
+        if (event.getAction() == Constant.ON_SAVE_CAR){
+            // TODO
+
+        }
+    }
 }

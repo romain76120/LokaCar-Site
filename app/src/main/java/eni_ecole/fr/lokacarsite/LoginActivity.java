@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eni_ecole.fr.lokacarsite.beans.User;
+import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.UserDao;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -321,6 +322,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
             User user = new UserDao().getUser(mEmail, mPassword);
             if(user != null){
+                Constant.user = user;
                 return true;
             }
 

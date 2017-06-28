@@ -44,6 +44,5 @@ public class Car {
         this.leasings = leasings;
     }
 
-    public Car(int i, String s) {
-    }
+
 }

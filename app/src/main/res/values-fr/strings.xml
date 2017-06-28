@@ -17,7 +17,7 @@
     <string name="title_activity_login">Connexion</string>
     <string name="prompt_registration">Immatriculation</string>
     <string name="title_car_list">Voitures</string>
-    <string name="title_car_detail">Voiture</string>
+    <string name="title_car_detail">Véhicule</string>
     <string name="action_all">Tous</string>
     <string name="action_rented">Louée</string>
     <string name="action_no_rented">Non louée</string>
@@ -30,4 +30,8 @@
     <string name="action_delete">Supprimer</string>
     <string name="action_delete_result">Supprimé</string>
     <string name="undo_delete">Undo</string>
+    <string name="action_search">Rechercher</string>
+    <string name="title_activity_car_add">Ajouter un véhicule</string>
+    <string name="action_save">Sauvegarder</string>
+    <string name="action_cancel">Annuler</string>
 </resources>

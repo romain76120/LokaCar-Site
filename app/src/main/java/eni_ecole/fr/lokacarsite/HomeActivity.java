@@ -15,12 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import eni_ecole.fr.lokacarsite.ui.car.add.CarAddActivity;
+import de.greenrobot.event.EventBus;
+import eni_ecole.fr.lokacarsite.constant.Constant;
+import eni_ecole.fr.lokacarsite.tools.QueryEvent;
+import eni_ecole.fr.lokacarsite.ui.car.details.CarAddActivity;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
 
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Integer eventAddButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,15 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                EventBus.getDefault().post(new QueryEvent(Constant.ADD_CAR, -1));
             }
         });
 
+        // On cache les boutons de modification si on est PAS admin
+        if (!Constant.user.admin)
+        {
+            fab.setVisibility(View.INVISIBLE);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -110,28 +119,21 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void setNavigation(Integer idMenu)
-    {
-        switch (idMenu)
-        {
-            case R.id.nav_park :
+    private void setNavigation(Integer idMenu) {
+        switch (idMenu) {
+            case R.id.nav_park:
                 switchFragment(new CarListFragment());
-                FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-                fab.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(HomeActivity.this, CarAddActivity.class);
-                        startActivity(intent);
-                    }
-                });
+                eventAddButton = Constant.ADD_CAR;
                 break;
-            case R.id.nav_client :
+            case R.id.nav_client:
                 switchFragment(new CarListFragment());
+                eventAddButton = Constant.ADD_CLIENT;
                 break;
-            case R.id.nav_user :
+            case R.id.nav_user:
                 switchFragment(new CarListFragment());
+                eventAddButton = Constant.ADD_USER;
                 break;
-            case R.id.nav_sales :
+            case R.id.nav_sales:
                 switchFragment(new CarListFragment());
                 break;
             case R.id.nav_disconnection:
@@ -140,7 +142,6 @@ public class HomeActivity extends AppCompatActivity
                 this.finish();
                 break;
         }
-
 
 
     }

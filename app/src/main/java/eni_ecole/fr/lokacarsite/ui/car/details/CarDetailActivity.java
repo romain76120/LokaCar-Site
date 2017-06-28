@@ -3,25 +3,24 @@ package eni_ecole.fr.lokacarsite.ui.car.details;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
-import eni_ecole.fr.lokacarsite.ui.car.modify.CarModifyActivity;
+import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class CarDetailActivity extends AppCompatActivity {
 
-    private Car mItem;
-    public static int ON_DELETE = 648;
+    private Integer mItemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +29,13 @@ public class CarDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        mItem = new CarDao().getFromId(getIntent().getIntExtra(CarDetailFragment.ARG_ITEM_ID,-1));
+        mItemId = getIntent().getIntExtra(Constant.ID_CAR,-1);
+
         FloatingActionButton fabDelete = (FloatingActionButton) findViewById(R.id.action_delete);
         fabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent deleteOrder = new Intent();
-                deleteOrder.putExtra(Constant.ID_CAR, mItem.id);
-                setResult(ON_DELETE, deleteOrder);
+                EventBus.getDefault().post(new QueryEvent(Constant.DELETE_CAR, mItemId));
                 CarDetailActivity.this.finish();
 
             }
@@ -46,11 +44,16 @@ public class CarDetailActivity extends AppCompatActivity {
         fabModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CarDetailActivity.this, CarModifyActivity.class);
-                intent.putExtra(Constant.ID_CAR, mItem.id);
-                startActivity(intent);
+                EventBus.getDefault().post(new QueryEvent(Constant.MODIFY_CAR, mItemId));
             }
         });
+
+        // On cache les boutons de modification si on est PAS admin
+        if (!Constant.user.admin)
+        {
+            fabModify.setVisibility(View.INVISIBLE);
+            fabDelete.setVisibility(View.INVISIBLE);
+        }
 
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
@@ -58,25 +61,12 @@ public class CarDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        // Si on est en mode portrait on rebascule sur la liste classique
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            this.finish();
-        }
-        // savedInstanceState is non-null when there is fragment state
-        // saved from previous configurations of this activity
-        // (e.g. when rotating the screen from portrait to landscape).
-        // In this case, the fragment will automatically be re-added
-        // to its container so we don't need to manually add it.
-        // For more information, see the Fragments API guide at:
-        //
-        // http://developer.android.com/guide/components/fragments.html
-        //
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putInt(CarDetailFragment.ARG_ITEM_ID,
-                    getIntent().getIntExtra(CarDetailFragment.ARG_ITEM_ID,-1));
+            arguments.putInt(Constant.ID_CAR,
+                    getIntent().getIntExtra(Constant.ID_CAR,-1));
 
 
             CarDetailFragment fragment = new CarDetailFragment();
@@ -84,6 +74,15 @@ public class CarDetailActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.car_detail_container, fragment)
                     .commit();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Si on est en mode portrait on rebascule sur la liste classique
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            this.finish();
         }
     }
 

@@ -41,24 +41,24 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/action_modify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@+id/car_detail_container"
+        app:layout_anchorGravity="top|center_horizontal"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/action_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|left"
+        android:layout_gravity="center_vertical|left"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@+id/car_detail_container"
         app:layout_anchorGravity="top|right"
         app:srcCompat="@android:drawable/ic_menu_delete" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/action_modify"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/car_detail_container"
-        app:layout_anchorGravity="top|right"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
 
 
 </android.support.design.widget.CoordinatorLayout>
