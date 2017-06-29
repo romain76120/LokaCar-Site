@@ -33,8 +33,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import eni_ecole.fr.lokacarsite.beans.Agency;
 import eni_ecole.fr.lokacarsite.beans.User;
 import eni_ecole.fr.lokacarsite.constant.Constant;
+import eni_ecole.fr.lokacarsite.dao.AgencyDao;
 import eni_ecole.fr.lokacarsite.dao.UserDao;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -320,10 +322,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
-            User user = new UserDao().getUser(mEmail, mPassword);
+            UserDao userDao = new UserDao(LoginActivity.this);
+            User user = userDao.getUser(mEmail, mPassword);
             if(user != null){
                 Constant.user = user;
                 return true;
+            }
+            else
+            {
+                if (userDao.get().size() == 0)
+                {
+                    AgencyDao agencyDao = new AgencyDao(LoginActivity.this);
+                    Long idAgency = agencyDao.add(new Agency("Agency", "Please enter an address", "Please enter an url", "0000000000"));
+                    Agency agency = agencyDao.get(idAgency.intValue());
+                    Long idUser = userDao.add(new User("Default", "Default", "default@default.com", "0000000000", "d", "d",true, agency ));
+                    Constant.user = userDao.get(idUser.intValue());
+                    return true;
+                }
             }
 
 //         for (String credential : DUMMY_CREDENTIALS) {
@@ -350,7 +365,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(intent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+                //mPasswordView.requestFocus();
             }
             showProgress(false);
         }

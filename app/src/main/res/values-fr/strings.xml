@@ -14,7 +14,7 @@
     <string name="prompt_email">Utilisateur</string>
     <string name="prompt_password">Mot de passe</string>
     <string name="string_list_car_status">Louée</string>
-    <string name="title_activity_login">Connexion</string>
+    <string name="title_activity_login">LokaCarDroid</string>
     <string name="prompt_registration">Immatriculation</string>
     <string name="title_car_list">Voitures</string>
     <string name="title_car_detail">Véhicule</string>

@@ -19,6 +19,12 @@ public class Car {
     public List<Leasing> leasings;
     public Boolean isLeasing;
 
+    public Car() {
+        carModel = new CarModel();
+        agency = new Agency();
+        category = new Category();
+    }
+
     public Car(Integer id, Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = id;
         this.agency = agency;
@@ -47,5 +53,16 @@ public class Car {
         this.leasings = leasings;
     }
 
+    @Override
+    public String toString() {
+        return carModel.name
+                + carModel.carBrand.name
+                + agency
+                + registration
+                + fuel
+                + category.name
+                + criteria
+                + price ;
 
+    }
 }

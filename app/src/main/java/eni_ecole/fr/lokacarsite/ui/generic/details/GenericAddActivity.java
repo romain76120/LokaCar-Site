@@ -1,19 +1,23 @@
-package eni_ecole.fr.lokacarsite.ui.car.details;
+package eni_ecole.fr.lokacarsite.ui.generic.details;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import java.lang.reflect.InvocationTargetException;
 
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.constant.Constant;
+import eni_ecole.fr.lokacarsite.tools.FragmentManager;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
+import eni_ecole.fr.lokacarsite.ui.car.details.CarAddFragment;
 
-public class CarAddActivity extends AppCompatActivity {
+public class GenericAddActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +30,8 @@ public class CarAddActivity extends AppCompatActivity {
         fabSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new QueryEvent(Constant.ON_SAVE_CAR));
-                CarAddActivity.this.finish();
+                EventBus.getDefault().post(new QueryEvent(Constant.ON_SAVE));
+                GenericAddActivity.this.finish();
 
             }
         });
@@ -35,7 +39,7 @@ public class CarAddActivity extends AppCompatActivity {
         fabCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CarAddActivity.this.finish();
+                GenericAddActivity.this.finish();
             }
         });
         // Show the Up button in the action bar.
@@ -48,10 +52,22 @@ public class CarAddActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
 
-            CarAddFragment fragment = new CarAddFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.car_detail_container, fragment)
-                    .commit();
+            Fragment fragment = null;
+            try {
+                fragment = FragmentManager.getFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.car_detail_container, fragment)
+                        .commit();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (java.lang.InstantiationException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 

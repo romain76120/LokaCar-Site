@@ -14,6 +14,9 @@ public class Client {
     public String phone;
     public List<Leasing> leasings;
 
+    public Client() {
+    }
+
     public Client(Integer id, String firstname, String lastname, String mail, String phone, List<Leasing> leasings) {
         this.id = id;
         this.firstname = firstname;

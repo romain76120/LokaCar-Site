@@ -13,8 +13,12 @@ public class User {
     public String login;
     public String password;
     public Boolean admin;
+    public Agency agency;
 
-    public User(Integer id, String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin) {
+    public User() {
+    }
+
+    public User(Integer id, String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin, Agency agency) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -23,9 +27,10 @@ public class User {
         this.login = login;
         this.password = password;
         this.admin = admin;
+        this.agency = agency;
     }
 
-    public User(String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin) {
+    public User(String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin, Agency agency) {
         this.id = -1;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -34,5 +39,6 @@ public class User {
         this.login = login;
         this.password = password;
         this.admin = admin;
+        this.agency = agency;
     }
 }

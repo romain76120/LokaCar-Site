@@ -18,11 +18,6 @@ import eni_ecole.fr.lokacarsite.constant.Constant;
 
 public class CarBrandDao extends ObjectDao<CarBrand> {
 
-    private final static String QUERY_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
-            + "CARBRAND ("
-            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "NAME TEXT)";
-
 
     private final static String TABLE_NAME = "CARBRAND";
     private final static String OREDERED_COLUMN_NAME = "NAME";
@@ -31,11 +26,6 @@ public class CarBrandDao extends ObjectDao<CarBrand> {
 
     public CarBrandDao(Context context) {
         super(CarBrand.class, context, Constant.DATABASE_NAME, Constant.DATABASE_VERSION);
-    }
-
-    @Override
-    protected String getQueryCreateTable() {
-        return QUERY_CREATE_TABLE;
     }
 
     @Override
@@ -58,6 +48,11 @@ public class CarBrandDao extends ObjectDao<CarBrand> {
         ContentValues values = new ContentValues();
         values.put("NAME", object.name);
         return values;
+    }
+
+    @Override
+    protected void constructConnexeData(CarBrand object) {
+        // NOTHING
     }
 
     @Override

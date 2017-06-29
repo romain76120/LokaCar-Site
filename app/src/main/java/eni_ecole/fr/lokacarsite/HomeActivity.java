@@ -3,7 +3,6 @@ package eni_ecole.fr.lokacarsite;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,14 +17,13 @@ import android.view.MenuItem;
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
-import eni_ecole.fr.lokacarsite.ui.car.details.CarAddActivity;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
+import eni_ecole.fr.lokacarsite.ui.generic.list.GenericListFragment;
 
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Integer eventAddButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new QueryEvent(Constant.ADD_CAR, -1));
+                EventBus.getDefault().post(new QueryEvent(Constant.ADD, -1));
             }
         });
 
@@ -123,15 +121,12 @@ public class HomeActivity extends AppCompatActivity
         switch (idMenu) {
             case R.id.nav_park:
                 switchFragment(new CarListFragment());
-                eventAddButton = Constant.ADD_CAR;
                 break;
             case R.id.nav_client:
                 switchFragment(new CarListFragment());
-                eventAddButton = Constant.ADD_CLIENT;
                 break;
             case R.id.nav_user:
                 switchFragment(new CarListFragment());
-                eventAddButton = Constant.ADD_USER;
                 break;
             case R.id.nav_sales:
                 switchFragment(new CarListFragment());

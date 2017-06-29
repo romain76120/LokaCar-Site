@@ -9,6 +9,10 @@ public class CarModel {
     public CarBrand carBrand;
     public String name;
 
+    public CarModel() {
+        carBrand = new CarBrand();
+    }
+
     public CarModel(Integer id, CarBrand carBrand, String name) {
         this.id = id;
         this.name = name;

@@ -17,6 +17,86 @@ import java.util.ArrayList;
 
 public abstract class ObjectDao<T> {
 
+
+    private final static String QUERY_CREATE_TABLE_AGENCY = "CREATE TABLE IF NOT EXISTS "
+            + "AGENCY ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "NAME TEXT,"
+            + "ADDRESS TEXT,"
+            + "URL TEXT,"
+            + "PHONE TEXT)";
+
+    private final static String QUERY_CREATE_TABLE_CARBRAND = "CREATE TABLE IF NOT EXISTS "
+            + "CARBRAND ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "NAME TEXT)";
+
+
+    private final static String QUERY_CREATE_TABLE_CAR = "CREATE TABLE IF NOT EXISTS "
+            + "CAR ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "ID_CARMODEL INTEGER,"
+            + "ID_AGENCY INTEGER,"
+            + "ID_CATEGORY INTEGER,"
+            + "ISLEASING INTEGER,"
+            + "REGISTRATION TEXT,"
+            + "FUEL TEXT,"
+            + "CRITERIA TEXT,"
+            + "PRICE FLOAT)";
+
+    private final static String QUERY_CREATE_TABLE_CARMODEL = "CREATE TABLE IF NOT EXISTS "
+            + "CARMODEL ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "ID_CARBRAND INTEGER"
+            + "NAME TEXT)";
+
+    private final static String QUERY_CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS "
+            + "CATEGORY ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "NAME TEXT)";
+
+
+
+    private final static String QUERY_CREATE_TABLE_CLIENT = "CREATE TABLE IF NOT EXISTS "
+            + "CLIENT ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "FIRSTNAME TEXT,"
+            + "LASTNAME TEXT,"
+            + "MAIL TEXT,"
+            + "PHONE TEXT)";
+
+    private final static String QUERY_CREATE_TABLE_LEASING = "CREATE TABLE IF NOT EXISTS "
+            + "LEASING ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "ID_CAR INTEGER, "
+            + "ID_CLIENT INTEGER, "
+            + "START_DATE TEXT, "
+            + "END_DATE TEXT, "
+            + "REAL_START_DATE TEXT, "
+            + "REAL_END_DATE TEXT, "
+            + "PRICE_TOTAL FLOAT)";
+
+    private final static String QUERY_CREATE_TABLE_PHOTO = "CREATE TABLE IF NOT EXISTS "
+            + "PHOTO ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "ID_CAR INTEGER, "
+            + "ID_LEASING INTEGER, "
+            + "IS_BEFORE INTEGER, "
+            + "NAME TEXT)";
+
+
+    private final static String QUERY_CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS "
+            + "USER ("
+            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + "FIRSTNAME TEXT,"
+            + "LASTNAME TEXT,"
+            + "MAIL TEXT,"
+            + "PHONE TEXT,"
+            + "LOGIN TEXT,"
+            + "PASSWORD TEXT,"
+            + "ADMIN INTEGER)";
+
+
     private final static String QUERY_DELETE_TABLE = "DROP TABLE IF EXISTS ";
     private final SQLiteOpenHelper helper;
     private SQLiteDatabase db;
@@ -37,7 +117,16 @@ public abstract class ObjectDao<T> {
 
             @Override
             public void onCreate(SQLiteDatabase db) {
-                db.execSQL(getQueryCreateTable());
+
+                db.execSQL(QUERY_CREATE_TABLE_AGENCY);
+                db.execSQL(QUERY_CREATE_TABLE_CAR);
+                db.execSQL(QUERY_CREATE_TABLE_CARBRAND);
+                db.execSQL(QUERY_CREATE_TABLE_CARMODEL);
+                db.execSQL(QUERY_CREATE_TABLE_CATEGORY);
+                db.execSQL(QUERY_CREATE_TABLE_CLIENT);
+                db.execSQL(QUERY_CREATE_TABLE_LEASING);
+                db.execSQL(QUERY_CREATE_TABLE_PHOTO);
+                db.execSQL(QUERY_CREATE_TABLE_USER);
             }
 
             @Override
@@ -52,7 +141,6 @@ public abstract class ObjectDao<T> {
         this.db = this.helper.getWritableDatabase();
     }
 
-    abstract protected String getQueryCreateTable() ;
     // essaie avec la reflexion : trop couteux
 //        StringBuilder query = new StringBuilder();
 //        query.append("CREATE TABLE IF NOT EXISTS ");
@@ -75,6 +163,8 @@ public abstract class ObjectDao<T> {
 
     abstract protected ContentValues constructObjectDB(T object) ;
 
+    abstract protected void constructConnexeData(T object) ;
+
     abstract protected T constructObjectArray(Cursor cursor) ;
 
     public long add(T object) {
@@ -88,7 +178,15 @@ public abstract class ObjectDao<T> {
         return context;
     }
 
-    public ArrayList<T> get() {
+    public ArrayList<T> get(){
+        ArrayList<T> objects= getWithoutDataConnexe();
+        for (T object: objects) {
+            constructConnexeData(object);
+        }
+        return objects;
+    }
+
+    protected ArrayList<T> getWithoutDataConnexe() {
         Cursor cursor = db.query(
                 getTableName(), null, null, null, null, null, getOrderedColumnName());
         ArrayList<T> objects = new ArrayList<T>();
@@ -101,13 +199,14 @@ public abstract class ObjectDao<T> {
     }
 
     public T get(int id) {
-        Cursor cursor = db.query(
-                getTableName(), null, getIdColumnName() + String.valueOf(id), null, null, null, getOrderedColumnName());
-        ArrayList<T> objects = new ArrayList<T>();
-        while (cursor.moveToNext()) {
-            objects.add(constructObjectArray(cursor));
-        }
-        cursor.close();
+        T object = getWithoutDataConnexe(id);
+        constructConnexeData(object);
+        return object;
+    }
+
+    protected T getWithoutDataConnexe(int id) {
+        ArrayList<T> objects = getWithoutDataConnexe(getIdColumnName(), id);
+
         if (objects.size() > 1) {
             throw new SQLException();
         } else if (objects.size() == 0) {
@@ -115,6 +214,23 @@ public abstract class ObjectDao<T> {
         } else {
             return objects.get(0);
         }
+    }
+
+    protected ArrayList<T> getWithoutDataConnexe(String columnName, int id) {
+        return getWithoutDataConnexe(columnName + "=" + String.valueOf(id));
+    }
+
+    protected ArrayList<T> getWithoutDataConnexe(String whereClause) {
+        Cursor cursor = db.query(
+                getTableName(), null, whereClause, null, null, null, getOrderedColumnName());
+        ArrayList<T> objects = new ArrayList<T>();
+        while (cursor.moveToNext()) {
+            objects.add(constructObjectArray(cursor));
+        }
+        cursor.close();
+
+        return objects;
+
     }
 
     public void set(int id, T object) {

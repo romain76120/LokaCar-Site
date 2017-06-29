@@ -22,19 +22,6 @@ import eni_ecole.fr.lokacarsite.constant.Constant;
 
 public class CarDao extends ObjectDao<Car>{
 
-
-    private final static String QUERY_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
-            + "CAR ("
-            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "ID_CARMODEL INTEGER,"
-            + "ID_AGENCY INTEGER,"
-            + "ID_CATEGORY INTEGER,"
-            + "ISLEASING INTEGER,"
-            + "REGISTRATION TEXT,"
-            + "FUEL TEXT,"
-            + "CRITERIA TEXT,"
-            + "PRICE FLOAT)";
-
     private final static String TABLE_NAME = "CAR";
     private final static String OREDERED_COLUMN_NAME = "REGISTRATION";
     private final static String ID_COLUMN_NAME = "_ID";
@@ -48,9 +35,7 @@ public class CarDao extends ObjectDao<Car>{
 
     public CarDao(Context context) {
         super(Car.class, context, Constant.DATABASE_NAME, Constant.DATABASE_VERSION);
-        carModelDao = new CarModelDao(context);
-        agencyDao = new AgencyDao(context);
-        categoryDao = new CategoryDao(context);
+
     }
 
 
@@ -61,11 +46,6 @@ public class CarDao extends ObjectDao<Car>{
 //            add(new Car(21, "HTGRATUI", "Diesel", 2, "Hors ville", new ArrayList<String>(), new Float(158.89), false, new ArrayList<Leasing>()));
 
 
-
-    @Override
-    protected String getQueryCreateTable() {
-        return QUERY_CREATE_TABLE;
-    }
 
     @Override
     protected String getTableName() {
@@ -99,33 +79,45 @@ public class CarDao extends ObjectDao<Car>{
 
     @Override
     protected Car constructObjectArray(Cursor cursor) {
-        Integer id = cursor.getInt(cursor.getColumnIndex("_ID"));
-        Integer idCarModel = cursor.getInt(cursor.getColumnIndex("ID_CARMODEL"));
-        Integer idAgency = cursor.getInt(cursor.getColumnIndex("ID_AGENCY"));
-        Integer idCategory = cursor.getInt(cursor.getColumnIndex("ID_CATEGORY"));
-        Boolean isLeasing = getBooleanValue(cursor.getInt(cursor.getColumnIndex("ISLEASING")));
-        String registration = cursor.getString(cursor.getColumnIndex("REGISTRATION"));
-        String fuel = cursor.getString(cursor.getColumnIndex("FUEL"));
-        String criteria = cursor.getString(cursor.getColumnIndex("CRITERIA"));
-        Float price = cursor.getFloat(cursor.getColumnIndex("PRICE"));
+        Car car = new Car();
+        car.id = cursor.getInt(cursor.getColumnIndex("_ID"));
+        car.registration = cursor.getString(cursor.getColumnIndex("REGISTRATION"));
+        car.fuel = cursor.getString(cursor.getColumnIndex("FUEL"));
+        car.criteria = cursor.getString(cursor.getColumnIndex("CRITERIA"));
+        car.price = cursor.getFloat(cursor.getColumnIndex("PRICE"));
+        car.isLeasing = getBooleanValue(cursor.getInt(cursor.getColumnIndex("ISLEASING")));
 
-        CarModel carModel = carModelDao.get(idCarModel);
-        Agency agency = agencyDao.get(idAgency);
-        Category category = categoryDao.get(idCategory);
-        List<Photo> photos = photoDao.getFromIdCar(id);
-        List<Leasing> leasings = leasingDao.getFromIdCar(id);
-        return new Car(id, agency,carModel,registration,fuel,category,criteria,photos, price, isLeasing, leasings);
+        car.carModel = new CarModel();
+        car.agency = new Agency();
+        car.category = new Category();
+
+        car.carModel.id = cursor.getInt(cursor.getColumnIndex("ID_CARMODEL"));
+        car.agency.id = cursor.getInt(cursor.getColumnIndex("ID_AGENCY"));
+        car.category.id = cursor.getInt(cursor.getColumnIndex("ID_CATEGORY"));
+
+        return car;
     }
 
 
+
+
+    @Override
+    protected void constructConnexeData(Car object) {
+        carModelDao = new CarModelDao(getContext());
+        agencyDao = new AgencyDao(getContext());
+        categoryDao = new CategoryDao(getContext());
+        photoDao = new PhotoDao(getContext());
+        leasingDao = new LeasingDao(getContext());
+
+        object.carModel = carModelDao.get(object.carModel.id);
+        object.agency = agencyDao.get(object.agency.id);
+        object.category = categoryDao.get(object.category.id);
+        object.photos = photoDao.get(object);
+        object.leasings = leasingDao.get(object);
+    }
+
     public ArrayList<Car> getRented(Boolean rented) {
-        ArrayList<Car> carSelection = new ArrayList<Car>();
-        for (Car car : get()) {
-            if (car.isLeasing == rented) {
-                carSelection.add(car);
-            }
-        }
-        return carSelection;
+        return getWithoutDataConnexe("ISLEASING", putBooleanValue(rented));
     }
 
 }

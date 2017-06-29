@@ -1,24 +1,26 @@
-package eni_ecole.fr.lokacarsite.ui.car.details;
+package eni_ecole.fr.lokacarsite.ui.generic.details;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
+import java.lang.reflect.InvocationTargetException;
+
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
-import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
-import eni_ecole.fr.lokacarsite.dao.CarDao;
+import eni_ecole.fr.lokacarsite.tools.FragmentManager;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
+import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailFragment;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
-public class CarDetailActivity extends AppCompatActivity {
+public class GenericDetailActivity extends AppCompatActivity {
 
     private Integer mItemId;
 
@@ -29,14 +31,14 @@ public class CarDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
-        mItemId = getIntent().getIntExtra(Constant.ID_CAR,-1);
+        mItemId = getIntent().getIntExtra(Constant.ID,-1);
 
         FloatingActionButton fabDelete = (FloatingActionButton) findViewById(R.id.action_delete);
         fabDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new QueryEvent(Constant.DELETE_CAR, mItemId));
-                CarDetailActivity.this.finish();
+                EventBus.getDefault().post(new QueryEvent(Constant.DELETE, mItemId));
+                GenericDetailActivity.this.finish();
 
             }
         });
@@ -44,7 +46,7 @@ public class CarDetailActivity extends AppCompatActivity {
         fabModify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new QueryEvent(Constant.MODIFY_CAR, mItemId));
+                EventBus.getDefault().post(new QueryEvent(Constant.MODIFY, mItemId));
             }
         });
 
@@ -65,15 +67,26 @@ public class CarDetailActivity extends AppCompatActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putInt(Constant.ID_CAR,
-                    getIntent().getIntExtra(Constant.ID_CAR,-1));
+            arguments.putInt(Constant.ID,
+                    getIntent().getIntExtra(Constant.ID,-1));
 
 
-            CarDetailFragment fragment = new CarDetailFragment();
-            fragment.setArguments(arguments);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.car_detail_container, fragment)
-                    .commit();
+            Fragment fragment = null;
+            try {
+                fragment = FragmentManager.getFragment();
+                fragment.setArguments(arguments);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.car_detail_container, fragment)
+                        .commit();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (java.lang.InstantiationException e) {
+                e.printStackTrace();
+            }
         }
     }
 

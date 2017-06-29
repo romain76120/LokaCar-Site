@@ -37,18 +37,17 @@ public class CarDetailFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments().containsKey(Constant.ID_CAR)) {
+        if (getArguments().containsKey(Constant.ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = new CarDao().getFromId(getArguments().getInt(Constant.ID_CAR));
+            mItem = new CarDao(getContext()).get(getArguments().getInt(Constant.ID));
 
 
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                String mCategory = new CategoryDao().getFromId(mItem.idCategory).name;
-                appBarLayout.setTitle(mCategory);
+                appBarLayout.setTitle(mItem.category.name);
             }
         }
     }

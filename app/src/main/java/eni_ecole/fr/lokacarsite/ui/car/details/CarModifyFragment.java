@@ -1,8 +1,6 @@
 package eni_ecole.fr.lokacarsite.ui.car.details;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -16,7 +14,6 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
-import eni_ecole.fr.lokacarsite.dao.CategoryDao;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
 public class CarModifyFragment extends Fragment {
@@ -40,11 +37,11 @@ public class CarModifyFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments().containsKey(Constant.ID_CAR)) {
+        if (getArguments().containsKey(Constant.ID)) {
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = new CarDao().getFromId(getArguments().getInt(Constant.ID_CAR));
+            mItem = new CarDao(getContext()).get(getArguments().getInt(Constant.ID));
 
 
             Activity activity = this.getActivity();
@@ -82,9 +79,9 @@ public class CarModifyFragment extends Fragment {
     }
 
     public void onEvent(QueryEvent event) {
-        if (event.getAction() == Constant.ON_SAVE_CAR){
+        if (event.getAction() == Constant.ON_SAVE){
             // TODO
-            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL_CAR, mItem.id, mItem));
+            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL, mItem.id, mItem));
         }
     }
 }

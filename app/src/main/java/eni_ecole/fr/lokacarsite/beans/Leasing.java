@@ -12,13 +12,19 @@ public class Leasing {
     public Client client;
     public String startDate;
     public String endDate;
-    public List<String> photoBefore;
-    public List<String> photoAfter;
+    public List<Photo> photoBefore;
+    public List<Photo> photoAfter;
     public String realStartDate;
     public String realEndDate;
-    public String priceTotal;
+    public Float priceTotal;
 
-    public Leasing(Integer id, Car car, Client client, String startDate, String endDate, List<String> photoBefore, List<String> photoAfter, String realStartDate, String realEndDate, String priceTotal) {
+    public Leasing() {
+        car = new Car();
+        client = new Client();
+
+    }
+
+    public Leasing(Integer id, Car car, Client client, String startDate, String endDate, List<Photo> photoBefore, List<Photo> photoAfter, String realStartDate, String realEndDate, Float priceTotal) {
         this.id = id;
         this.car = car;
         this.client = client;
@@ -31,7 +37,7 @@ public class Leasing {
         this.priceTotal = priceTotal;
     }
 
-    public Leasing(Car car, Client client, String startDate, String endDate, List<String> photoBefore, List<String> photoAfter, String realStartDate, String realEndDate, String priceTotal) {
+    public Leasing(Car car, Client client, String startDate, String endDate, List<Photo> photoBefore, List<Photo> photoAfter, String realStartDate, String realEndDate, Float priceTotal) {
         this.id = -1;
         this.car = car;
         this.client = client;

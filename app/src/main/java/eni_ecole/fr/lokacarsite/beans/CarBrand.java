@@ -8,6 +8,9 @@ public class CarBrand {
     public Integer id;
     public String name;
 
+    public CarBrand() {
+    }
+
     public CarBrand(Integer id, String name) {
         this.id = id;
         this.name = name;

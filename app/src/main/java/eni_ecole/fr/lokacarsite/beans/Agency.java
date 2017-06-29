@@ -11,6 +11,9 @@ public class Agency {
     public String url;
     public String phone;
 
+    public Agency() {
+    }
+
     public Agency(Integer id, String name, String address, String url, String phone) {
         this.id = id;
         this.name = name;

@@ -16,12 +16,6 @@ import eni_ecole.fr.lokacarsite.constant.Constant;
  */
 
 public class CarModelDao extends ObjectDao<CarModel>{
-    private final static String QUERY_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS "
-            + "CARMODEL ("
-            + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "ID_CARBRAND INTEGER"
-            + "NAME TEXT)";
-
 
     private final static String TABLE_NAME = "CARMODEL";
     private final static String OREDERED_COLUMN_NAME = "NAME";
@@ -31,13 +25,7 @@ public class CarModelDao extends ObjectDao<CarModel>{
 
     public CarModelDao(Context context) {
         super(CarModel.class, context, Constant.DATABASE_NAME, Constant.DATABASE_VERSION);
-        carBrandDao = new CarBrandDao(context);
-    }
 
-
-    @Override
-    protected String getQueryCreateTable() {
-        return QUERY_CREATE_TABLE;
     }
 
     @Override
@@ -65,17 +53,24 @@ public class CarModelDao extends ObjectDao<CarModel>{
     }
 
     @Override
-    protected CarModel constructObjectArray(Cursor cursor) {
-        Integer id = cursor.getInt(cursor.getColumnIndex("_ID"));
-        String name = cursor.getString(cursor.getColumnIndex("NAME"));
-        Integer idCarBrand = cursor.getInt(cursor.getColumnIndex("ID_CARBRAND"));
+    protected void constructConnexeData(CarModel object) {
+        carBrandDao = new CarBrandDao(getContext());
+        object.carBrand = carBrandDao.get(object.carBrand.id);
+    }
 
-        CarBrand carBrand = carBrandDao.get(idCarBrand);
-        return new CarModel(id, carBrand, name);
+    @Override
+    protected CarModel constructObjectArray(Cursor cursor) {
+        CarModel carModel = new CarModel();
+        carModel.id = cursor.getInt(cursor.getColumnIndex("_ID"));
+        carModel.name = cursor.getString(cursor.getColumnIndex("NAME"));
+        carModel.carBrand.id = cursor.getInt(cursor.getColumnIndex("ID_CARBRAND"));
+
+
+        return carModel;
     }
 
 
-//            carBrands.add(new CarBrand(0,"Peugeot"));
+    //            carBrands.add(new CarBrand(0,"Peugeot"));
 //            carBrands.add(new CarBrand(0,"Renault"));
 //            carBrands.add(new CarBrand(0,"Citroën"));
 //            carBrands.add(new CarBrand(0,"Audi"));

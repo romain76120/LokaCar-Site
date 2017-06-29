@@ -1,22 +1,17 @@
 package eni_ecole.fr.lokacarsite.ui.car.details;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
-import eni_ecole.fr.lokacarsite.dao.CarDao;
-import eni_ecole.fr.lokacarsite.dao.CategoryDao;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
 public class CarAddFragment extends Fragment {
@@ -57,10 +52,10 @@ public class CarAddFragment extends Fragment {
     }
 
     public void onEvent(QueryEvent event) {
-        if (event.getAction() == Constant.ON_SAVE_CAR){
+        if (event.getAction() == Constant.ON_SAVE){
 
             // TODO
-            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL_CAR, -1, mItem));
+            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL, -1, mItem));
         }
     }
 
