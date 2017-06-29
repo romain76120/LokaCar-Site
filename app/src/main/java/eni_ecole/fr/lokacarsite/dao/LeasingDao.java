@@ -72,6 +72,8 @@ public class LeasingDao  extends ObjectDao<Leasing>{
         photoDao = new PhotoDao(getContext());
         carDao = new CarDao(getContext());
         clientDao = new ClientDao(getContext());
+        carDao = new CarDao(getContext());
+        clientDao = new ClientDao(getContext());
         object.car = carDao.get(object.car.id);
         object.client = clientDao.get(object.client.id);
     }
@@ -86,10 +88,15 @@ public class LeasingDao  extends ObjectDao<Leasing>{
         leasing.realEndDate = cursor.getString(cursor.getColumnIndex("REAL_END_DATE"));
         leasing.priceTotal = cursor.getFloat(cursor.getColumnIndex("PRICE_TOTAL"));
 
-        Integer idCar = cursor.getInt(cursor.getColumnIndex("ID_CAR"));
-        Integer idClient = cursor.getInt(cursor.getColumnIndex("ID_CLIENT"));
+        Car car = new Car();
+        car.id = cursor.getInt(cursor.getColumnIndex("ID_CAR"));
+        leasing.car = car;
 
+        Client client = new Client();
+        client.id = cursor.getInt(cursor.getColumnIndex("ID_CLIENT"));
+        leasing.client = client;
 
+        PhotoDao photoDao = new PhotoDao(getContext());
         leasing.photoBefore = photoDao.getBefore(leasing);
         leasing.photoAfter = photoDao.getAfter(leasing);
 
@@ -101,7 +108,7 @@ public class LeasingDao  extends ObjectDao<Leasing>{
         clientDao = new ClientDao(getContext());
         for (Leasing leasing: leasings) {
             leasing.car = car;
-            leasing.client = clientDao.get(leasing.client.id);
+            leasing.client = clientDao.get(leasing);
         }
         return leasings;
     }
@@ -110,7 +117,7 @@ public class LeasingDao  extends ObjectDao<Leasing>{
         ArrayList<Leasing> leasings = super.getWithoutDataConnexe("ID_CLIENT", client.id);
         carDao = new CarDao(getContext());
         for (Leasing leasing: leasings) {
-            leasing.car = carDao.get(leasing.car.id);
+            leasing.car = carDao.get(leasing);
             leasing.client = client;
         }
         return leasings;

@@ -1,4 +1,4 @@
-package eni_ecole.fr.lokacarsite.ui.car.details;
+package eni_ecole.fr.lokacarsite.ui.client.details;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
-public class CarModifyFragment extends Fragment {
+public class ClientModifyFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -31,7 +31,7 @@ public class CarModifyFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CarModifyFragment() {
+    public ClientModifyFragment() {
     }
 
     @Override
@@ -55,7 +55,7 @@ public class CarModifyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_car_modify, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_client_modify, container, false);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.car_detail)).setText(mItem.registration);

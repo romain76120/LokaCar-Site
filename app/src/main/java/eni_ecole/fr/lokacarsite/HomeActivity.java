@@ -18,6 +18,7 @@ import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
+import eni_ecole.fr.lokacarsite.ui.client.list.ClientListFragment;
 import eni_ecole.fr.lokacarsite.ui.generic.list.GenericListFragment;
 
 
@@ -123,7 +124,7 @@ public class HomeActivity extends AppCompatActivity
                 switchFragment(new CarListFragment());
                 break;
             case R.id.nav_client:
-                switchFragment(new CarListFragment());
+                switchFragment(new ClientListFragment());
                 break;
             case R.id.nav_user:
                 switchFragment(new CarListFragment());

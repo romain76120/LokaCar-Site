@@ -15,14 +15,13 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.FragmentManager;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
-import eni_ecole.fr.lokacarsite.ui.car.details.CarModifyFragment;
 
 public class GenericModifyActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_modify);
+        setContentView(R.layout.activity_generic_modify);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
 //        setSupportActionBar(toolbar);
         FloatingActionButton fabSave = (FloatingActionButton) findViewById(R.id.action_save);

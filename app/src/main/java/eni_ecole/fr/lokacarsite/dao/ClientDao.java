@@ -92,4 +92,7 @@ public class ClientDao extends ObjectDao<Client> {
     }
 
 
+    public Client get(Leasing leasing) {
+        return getWithoutDataConnexe(leasing.car.id);
+    }
 }

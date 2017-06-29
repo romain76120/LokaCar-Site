@@ -16,7 +16,6 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.FragmentManager;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
-import eni_ecole.fr.lokacarsite.ui.car.details.CarDetailFragment;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
@@ -27,7 +26,7 @@ public class GenericDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_detail);
+        setContentView(R.layout.activity_generic_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 

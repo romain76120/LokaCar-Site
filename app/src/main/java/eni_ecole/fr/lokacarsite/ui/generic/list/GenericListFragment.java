@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -83,7 +84,7 @@ public abstract class GenericListFragment<T> extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.car_list, container, false);
+        View view = inflater.inflate(R.layout.generic_list, container, false);
         EventBus.getDefault().register(this);
         setHasOptionsMenu(true);
         lastFilterSelected = R.id.action_all;
@@ -93,10 +94,11 @@ public abstract class GenericListFragment<T> extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setupRecyclerView((RecyclerView) recyclerView);
+                reloadList();
 
             }
         });
+        swipeContainer.setColorSchemeResources(R.color.colorPrimaryDark);
         return view;
     }
 
@@ -115,7 +117,7 @@ public abstract class GenericListFragment<T> extends Fragment {
     public void onResume() {
         super.onResume();
         assert recyclerView != null;
-        setupRecyclerView((RecyclerView) recyclerView);
+        reloadList();
     }
 
 
@@ -127,12 +129,16 @@ public abstract class GenericListFragment<T> extends Fragment {
 
     public void onEvent(QueryEvent event) {
         currentFragment = event.getAction();
+
         switch (event.getAction()) {
+
             case Constant.ADD:
+                // Averti le fragmentManager qui conserve le nom du fragment affiché pour le basculement en paysage / portrait
                 FragmentManager.setFragment(getAddFragment());
                 if (mTwoPane) {
                     getActivity().invalidateOptionsMenu();
-                    lastViewSelected.setSelected(false);
+                    if(lastViewSelected != null)
+                        lastViewSelected.setSelected(false) ;
                     Fragment fragment = null;
                     try {
                         fragment = FragmentManager.getFragment();
@@ -154,13 +160,15 @@ public abstract class GenericListFragment<T> extends Fragment {
                     startActivity(intent);
                 }
                 break;
+
             case Constant.DETAIL:
+                // Averti le fragmentManager qui conserve le nom du fragment affiché pour le basculement en paysage / portrait
                 FragmentManager.setFragment(getDetailFragment());
                 if (mTwoPane) {
                     getActivity().invalidateOptionsMenu();
                     int elementId = event.getElementId();
                     // si l'élément n'a pas été donné, alors on sélectionne le dernier connu
-                    if (elementId == -1) {
+                    if (elementId == -1 && lastItemSelected != null) {
                         elementId = getIdObject(lastItemSelected);
                         lastViewSelected.setSelected(true);
                     }
@@ -189,7 +197,9 @@ public abstract class GenericListFragment<T> extends Fragment {
                     startActivity(intent);
                 }
                 break;
+
             case Constant.MODIFY:
+                // Averti le fragmentManager qui conserve le nom du fragment affiché pour le basculement en paysage / portrait
                 FragmentManager.setFragment(getModifyFragment());
                 if (mTwoPane) {
                     getActivity().invalidateOptionsMenu();
@@ -219,6 +229,7 @@ public abstract class GenericListFragment<T> extends Fragment {
                     startActivity(intent);
                 }
                 break;
+
             case Constant.DELETE:
                 // mise en cache des dernières informations
                 ObjectDao<T> dao = getDao(GenericListFragment.this.getContext());
@@ -226,7 +237,7 @@ public abstract class GenericListFragment<T> extends Fragment {
                 dao.delete(event.getElementId());
                 Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.action_delete_result, Snackbar.LENGTH_LONG)
                         .setAction(R.string.undo_delete, new UndoDeleteListener(mItem)).show();
-                setupRecyclerView((RecyclerView) recyclerView);
+                reloadList();
                 break;
         }
 
@@ -238,8 +249,7 @@ public abstract class GenericListFragment<T> extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        for (int menuRes :getOptionalMenuItem()
-             ) {
+        for (int menuRes :getOptionalMenuItem()) {
             inflater.inflate(menuRes, menu);
         }
         
@@ -301,6 +311,12 @@ public abstract class GenericListFragment<T> extends Fragment {
                     menuModify.setVisible(true);
                     menuDelete.setVisible(true);
                     break;
+                default:
+                    menuSave.setVisible(false);
+                    menuCancel.setVisible(false);
+                    menuModify.setVisible(false);
+                    menuDelete.setVisible(false);
+                    break;
             }
         }
     }
@@ -353,9 +369,19 @@ public abstract class GenericListFragment<T> extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    protected ArrayList<T> constructList()
+    {
+        return getDao(getContext()).get();
+    }
 
+    protected void reloadList()
+    {
+        swipeContainer.setRefreshing(true);
+        reloadList((RecyclerView) recyclerView);
+        swipeContainer.setRefreshing(false);
+    }
 
-    protected void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    protected void reloadList(@NonNull RecyclerView recyclerView) {
 
 //        switch (lastFilterSelected) {
 //            case R.id.action_all:
@@ -375,13 +401,12 @@ public abstract class GenericListFragment<T> extends Fragment {
 //                itemRecyclerViewAdapter.filter(query);
 //                break;
 //        }
-        
-        itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(getDao(getContext()).get());
+        itemRecyclerViewAdapter = new ItemRecyclerViewAdapter(constructList());
         itemRecyclerViewAdapter.filter(query);
 
 
         recyclerView.setAdapter(itemRecyclerViewAdapter);
-        swipeContainer.setRefreshing(false);
+
     }
 
 
@@ -395,7 +420,7 @@ public abstract class GenericListFragment<T> extends Fragment {
         @Override
         public void onClick(View v) {
             getDao(GenericListFragment.this.getContext()).add(mItem);
-            setupRecyclerView((RecyclerView) recyclerView);
+            reloadList();
         }
     }
 

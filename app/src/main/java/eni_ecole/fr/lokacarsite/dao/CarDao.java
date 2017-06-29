@@ -12,6 +12,7 @@ import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
 import eni_ecole.fr.lokacarsite.beans.Category;
+import eni_ecole.fr.lokacarsite.beans.Client;
 import eni_ecole.fr.lokacarsite.beans.Leasing;
 import eni_ecole.fr.lokacarsite.beans.Photo;
 import eni_ecole.fr.lokacarsite.constant.Constant;
@@ -20,7 +21,7 @@ import eni_ecole.fr.lokacarsite.constant.Constant;
  * Created by rroger2016 on 26/06/2017.
  */
 
-public class CarDao extends ObjectDao<Car>{
+public class CarDao extends ObjectDao<Car> {
 
     private final static String TABLE_NAME = "CAR";
     private final static String OREDERED_COLUMN_NAME = "REGISTRATION";
@@ -44,7 +45,6 @@ public class CarDao extends ObjectDao<Car>{
 //            add(new Car(12, "845VFAT", "Essence", 1, "Ville", new ArrayList<String>(), new Float(49.89), false, new ArrayList<Leasing>()));
 //            add(new Car(15, "45687FG", "Diesel", 2, "Hors ville", new ArrayList<String>(), new Float(105.89), true, new ArrayList<Leasing>()));
 //            add(new Car(21, "HTGRATUI", "Diesel", 2, "Hors ville", new ArrayList<String>(), new Float(158.89), false, new ArrayList<Leasing>()));
-
 
 
     @Override
@@ -99,8 +99,6 @@ public class CarDao extends ObjectDao<Car>{
     }
 
 
-
-
     @Override
     protected void constructConnexeData(Car object) {
         carModelDao = new CarModelDao(getContext());
@@ -117,7 +115,10 @@ public class CarDao extends ObjectDao<Car>{
     }
 
     public ArrayList<Car> getRented(Boolean rented) {
-        return getWithoutDataConnexe("ISLEASING", putBooleanValue(rented));
+        return get("ISLEASING", putBooleanValue(rented));
     }
 
+    public Car get(Leasing leasing) {
+        return getWithoutDataConnexe(leasing.car.id);
+    }
 }

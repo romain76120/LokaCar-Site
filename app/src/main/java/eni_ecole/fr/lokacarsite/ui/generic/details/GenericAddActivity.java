@@ -15,14 +15,13 @@ import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.FragmentManager;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
-import eni_ecole.fr.lokacarsite.ui.car.details.CarAddFragment;
 
 public class GenericAddActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_car_add);
+        setContentView(R.layout.activity_generic_add);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
 //        setSupportActionBar(toolbar);
 

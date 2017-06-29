@@ -1,4 +1,4 @@
-package eni_ecole.fr.lokacarsite.ui.car.details;
+package eni_ecole.fr.lokacarsite.ui.client.details;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,14 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
-import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
-public class CarModifyFragment extends Fragment {
+
+public class ClientDetailFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -31,7 +30,7 @@ public class CarModifyFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CarModifyFragment() {
+    public ClientDetailFragment() {
     }
 
     @Override
@@ -47,7 +46,7 @@ public class CarModifyFragment extends Fragment {
             Activity activity = this.getActivity();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle("Modification du véhicule");
+                appBarLayout.setTitle(mItem.category.name);
             }
         }
     }
@@ -55,7 +54,7 @@ public class CarModifyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_car_modify, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_client_detail, container, false);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.car_detail)).setText(mItem.registration);
@@ -64,24 +63,4 @@ public class CarModifyFragment extends Fragment {
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        super.onDestroy();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-
-    public void onEvent(QueryEvent event) {
-        if (event.getAction() == Constant.ON_SAVE){
-            // TODO
-            EventBus.getDefault().post(new QueryEvent(Constant.DETAIL, mItem.id, mItem));
-        }
-    }
 }

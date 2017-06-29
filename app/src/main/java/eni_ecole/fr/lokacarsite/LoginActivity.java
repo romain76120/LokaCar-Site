@@ -30,13 +30,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import eni_ecole.fr.lokacarsite.beans.Agency;
+import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.CarBrand;
+import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.beans.Category;
+import eni_ecole.fr.lokacarsite.beans.Client;
+import eni_ecole.fr.lokacarsite.beans.Leasing;
+import eni_ecole.fr.lokacarsite.beans.Photo;
 import eni_ecole.fr.lokacarsite.beans.User;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.dao.AgencyDao;
+import eni_ecole.fr.lokacarsite.dao.CarBrandDao;
+import eni_ecole.fr.lokacarsite.dao.CarDao;
+import eni_ecole.fr.lokacarsite.dao.CarModelDao;
+import eni_ecole.fr.lokacarsite.dao.CategoryDao;
+import eni_ecole.fr.lokacarsite.dao.ClientDao;
+import eni_ecole.fr.lokacarsite.dao.LeasingDao;
 import eni_ecole.fr.lokacarsite.dao.UserDao;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -332,11 +347,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             {
                 if (userDao.get().size() == 0)
                 {
-                    AgencyDao agencyDao = new AgencyDao(LoginActivity.this);
-                    Long idAgency = agencyDao.add(new Agency("Agency", "Please enter an address", "Please enter an url", "0000000000"));
-                    Agency agency = agencyDao.get(idAgency.intValue());
-                    Long idUser = userDao.add(new User("Default", "Default", "default@default.com", "0000000000", "d", "d",true, agency ));
-                    Constant.user = userDao.get(idUser.intValue());
+                    createSampleDB();
+
                     return true;
                 }
             }
@@ -375,6 +387,41 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
+    }
+
+    private void createSampleDB() {
+        UserDao userDao = new UserDao(LoginActivity.this);
+        AgencyDao agencyDao = new AgencyDao(LoginActivity.this);
+        CarBrandDao carBrandDao = new CarBrandDao(LoginActivity.this);
+        CarModelDao carModelDao = new CarModelDao(LoginActivity.this);
+        CategoryDao categoryDao = new CategoryDao(LoginActivity.this);
+        CarDao carDao = new CarDao(LoginActivity.this);
+        ClientDao clientDao = new ClientDao(LoginActivity.this);
+        LeasingDao leasingDao = new LeasingDao(LoginActivity.this);
+
+        Long idCarBrand = carBrandDao.add(new CarBrand("Peugeot"));
+        CarBrand carBrand = carBrandDao.get(idCarBrand.intValue());
+
+        Long idCarModel = carModelDao.add(new CarModel(carBrand,"206"));
+        CarModel carModel = carModelDao.get(idCarModel.intValue());
+
+        Long idCategory = categoryDao.add(new Category("Citadine"));
+        Category category = categoryDao.get(idCategory.intValue());
+
+        Long idAgency = agencyDao.add(new Agency("Agency", "Please enter an address", "Please enter an url", "0000000000"));
+        Agency agency = agencyDao.get(idAgency.intValue());
+
+        Long carId = carDao.add(new Car(agency,carModel,"AAT-448-ZT","Diesel",category,"Ville",new ArrayList<Photo>(), 50.0f,false,new ArrayList<Leasing>()));
+        Car car = carDao.get(carId.intValue());
+
+        Long idClient  = clientDao.add(new Client("Roger","Pierre","roger.pierre@lokacar.com","0900450068",new ArrayList<Leasing>()));
+        Client client = clientDao.get(idClient.intValue());
+
+        Long idLeasing = leasingDao.add(new Leasing(car,client, new SimpleDateFormat().format(new Date()), new SimpleDateFormat().format(new Date()), new ArrayList<Photo>(), new ArrayList<Photo>(), new SimpleDateFormat().format(new Date()), new SimpleDateFormat().format(new Date()), 50.0f));
+        Leasing leasing = leasingDao.get(idLeasing.intValue());
+
+        Long idUser = userDao.add(new User("Default", "Default", "default@default.com", "0000000000", "d", "d",true, agency ));
+        Constant.user = userDao.get(idUser.intValue());
     }
 }
 

@@ -1,4 +1,4 @@
-package eni_ecole.fr.lokacarsite.ui.car.details;
+package eni_ecole.fr.lokacarsite.ui.client.details;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import eni_ecole.fr.lokacarsite.beans.Car;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
-public class CarAddFragment extends Fragment {
+public class ClientAddFragment extends Fragment {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -28,7 +28,7 @@ public class CarAddFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public CarAddFragment() {
+    public ClientAddFragment() {
     }
 
     @Override
@@ -62,7 +62,7 @@ public class CarAddFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_car_add, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_client_add, container, false);
         // Show the dummy content as text in a TextView.
         Activity activity = this.getActivity();
         CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);

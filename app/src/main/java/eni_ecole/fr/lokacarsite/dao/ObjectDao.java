@@ -47,14 +47,13 @@ public abstract class ObjectDao<T> {
     private final static String QUERY_CREATE_TABLE_CARMODEL = "CREATE TABLE IF NOT EXISTS "
             + "CARMODEL ("
             + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "ID_CARBRAND INTEGER"
+            + "ID_CARBRAND INTEGER,"
             + "NAME TEXT)";
 
     private final static String QUERY_CREATE_TABLE_CATEGORY = "CREATE TABLE IF NOT EXISTS "
             + "CATEGORY ("
             + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
             + "NAME TEXT)";
-
 
 
     private final static String QUERY_CREATE_TABLE_CLIENT = "CREATE TABLE IF NOT EXISTS "
@@ -158,14 +157,16 @@ public abstract class ObjectDao<T> {
 //    }
 
     abstract protected String getTableName();
+
     abstract protected String getOrderedColumnName();
+
     abstract protected String getIdColumnName();
 
-    abstract protected ContentValues constructObjectDB(T object) ;
+    abstract protected ContentValues constructObjectDB(T object);
 
-    abstract protected void constructConnexeData(T object) ;
+    abstract protected void constructConnexeData(T object);
 
-    abstract protected T constructObjectArray(Cursor cursor) ;
+    abstract protected T constructObjectArray(Cursor cursor);
 
     public long add(T object) {
         // met à jour la liste d'article
@@ -173,14 +174,13 @@ public abstract class ObjectDao<T> {
     }
 
 
-    public Context getContext()
-    {
+    public Context getContext() {
         return context;
     }
 
-    public ArrayList<T> get(){
-        ArrayList<T> objects= getWithoutDataConnexe();
-        for (T object: objects) {
+    public ArrayList<T> get() {
+        ArrayList<T> objects = getWithoutDataConnexe();
+        for (T object : objects) {
             constructConnexeData(object);
         }
         return objects;
@@ -220,6 +220,22 @@ public abstract class ObjectDao<T> {
         return getWithoutDataConnexe(columnName + "=" + String.valueOf(id));
     }
 
+    protected ArrayList<T> get(String columnName, int id) {
+        ArrayList<T> objects = getWithoutDataConnexe(columnName + "=" + String.valueOf(id));
+        for (T object : objects) {
+            constructConnexeData(object);
+        }
+        return objects;
+    }
+
+    protected ArrayList<T> get(String whereClause) {
+        ArrayList<T> objects = getWithoutDataConnexe(whereClause);
+        for (T object : objects) {
+            constructConnexeData(object);
+        }
+        return objects;
+    }
+
     protected ArrayList<T> getWithoutDataConnexe(String whereClause) {
         Cursor cursor = db.query(
                 getTableName(), null, whereClause, null, null, null, getOrderedColumnName());
@@ -244,13 +260,14 @@ public abstract class ObjectDao<T> {
         else
             return 0;
     }
+
     protected Boolean getBooleanValue(int bought) {
         return bought == 1;
     }
 
 
     public void delete(int id) {
-        db.delete(getTableName(), getIdColumnName() + String.valueOf(id), null);
+        db.delete(getTableName(), getIdColumnName() + "=" + String.valueOf(id), null);
     }
 
     public void finalize() throws Throwable {
