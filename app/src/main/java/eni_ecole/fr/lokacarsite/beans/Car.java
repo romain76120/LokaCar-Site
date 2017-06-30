@@ -57,14 +57,12 @@ public class Car {
 
     @Override
     public String toString() {
-        return carModel.name
-                + carModel.carBrand.name
+        return carModel.toString()
                 + agency
                 + registration
                 + fuel
-                + category.name
+                + category.toString()
                 + criteria
                 + price ;
-
     }
 }

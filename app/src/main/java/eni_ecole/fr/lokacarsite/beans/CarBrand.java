@@ -20,4 +20,10 @@ public class CarBrand {
         this.id = -1;
         this.name = name;
     }
+
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

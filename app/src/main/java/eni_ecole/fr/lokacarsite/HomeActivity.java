@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
+import eni_ecole.fr.lokacarsite.ui.agency.AgencyFragment;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
 import eni_ecole.fr.lokacarsite.ui.carbrand.list.CarBrandListFragment;
 import eni_ecole.fr.lokacarsite.ui.carmodel.list.CarModelListFragment;
@@ -24,6 +25,7 @@ import eni_ecole.fr.lokacarsite.ui.category.list.CategoryListFragment;
 import eni_ecole.fr.lokacarsite.ui.client.list.ClientListFragment;
 import eni_ecole.fr.lokacarsite.ui.generic.list.GenericListFragment;
 import eni_ecole.fr.lokacarsite.ui.leasing.list.LeasingListFragment;
+import eni_ecole.fr.lokacarsite.ui.sales.SalesFragment;
 import eni_ecole.fr.lokacarsite.ui.user.list.UserListFragment;
 
 
@@ -146,10 +148,10 @@ public class HomeActivity extends AppCompatActivity
                 switchFragment(new UserListFragment());
                 break;
             case R.id.nav_sales:
-                // TODO
+                switchFragment(new SalesFragment());
                 break;
             case R.id.nav_agency:
-                // TODO
+                switchFragment(new AgencyFragment());
                 break;
             case R.id.nav_disconnection:
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);

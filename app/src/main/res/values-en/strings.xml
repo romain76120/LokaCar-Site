@@ -39,4 +39,6 @@
     <string name="nav_carbrand">Car brand</string>
     <string name="nav_carmodel">Car model</string>
     <string name="nav_leasing">Leasing</string>
+    <string name="title_car_add">Add</string>
+    <string name="title_car_modify">Modify</string>
 </resources>

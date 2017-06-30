@@ -21,8 +21,8 @@
     </string>
     <string name="string_list_car_status">Rented</string>
     <string name="prompt_registration">Registration</string>
-    <string name="title_car_list">Cars</string>
-    <string name="title_car_detail">Car Detail</string>
+    <string name="title_car_list">List</string>
+    <string name="title_car_detail">Detail</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="action_all">All</string>
@@ -50,4 +50,6 @@
     <string name="nav_carbrand">Car brand</string>
     <string name="nav_carmodel">Car model</string>
     <string name="nav_leasing">Leasing</string>
+    <string name="title_car_add">Add</string>
+    <string name="title_car_modify">Modify</string>
 </resources>

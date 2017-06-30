@@ -20,4 +20,10 @@ public class Category {
         this.id = -1;
         this.name = name;
     }
+
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

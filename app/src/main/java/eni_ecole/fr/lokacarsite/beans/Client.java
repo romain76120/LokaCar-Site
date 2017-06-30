@@ -34,4 +34,10 @@ public class Client {
         this.phone = phone;
         this.leasings = leasings;
     }
+
+
+    @Override
+    public String toString() {
+        return firstname + lastname + mail + phone;
+    }
 }

@@ -58,7 +58,7 @@ public class CarDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_car_detail, container, false);
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.car_detail)).setText(mItem.registration);
+            ((TextView) rootView.findViewById(R.id.imattextviewdetail)).setText(mItem.registration);
         }
 
         return rootView;

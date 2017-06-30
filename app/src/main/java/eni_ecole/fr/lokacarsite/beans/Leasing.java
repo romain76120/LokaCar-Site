@@ -49,4 +49,9 @@ public class Leasing {
         this.realEndDate = realEndDate;
         this.priceTotal = priceTotal;
     }
+
+    @Override
+    public String toString() {
+        return car.toString() + client.toString() + startDate + endDate + realStartDate + realEndDate + priceTotal ;
+    }
 }

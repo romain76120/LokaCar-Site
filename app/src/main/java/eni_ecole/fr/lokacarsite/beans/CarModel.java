@@ -24,4 +24,11 @@ public class CarModel {
         this.name = name;
         this.carBrand = carBrand;
     }
+
+
+    @Override
+    public String toString() {
+        return carBrand.toString()
+                + name;
+    }
 }

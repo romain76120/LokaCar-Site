@@ -41,4 +41,8 @@ public class User {
         this.admin = admin;
         this.agency = agency;
     }
+    @Override
+    public String toString() {
+        return firstname + lastname + mail + phone;
+    }
 }
