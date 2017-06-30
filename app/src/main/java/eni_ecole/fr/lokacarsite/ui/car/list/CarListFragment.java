@@ -113,4 +113,9 @@ public class CarListFragment extends GenericListFragment<Car> {
         return CarModifyFragment.class;
     }
 
+    @Override
+    protected int getListLayout() {
+        return R.layout.car_list_content;
+    }
+
 }

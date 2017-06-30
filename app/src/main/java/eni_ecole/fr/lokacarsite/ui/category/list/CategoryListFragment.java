@@ -1,54 +1,47 @@
-package eni_ecole.fr.lokacarsite.ui.client.list;
+package eni_ecole.fr.lokacarsite.ui.category.list;
 
 import android.content.Context;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import eni_ecole.fr.lokacarsite.R;
-import eni_ecole.fr.lokacarsite.beans.Car;
-import eni_ecole.fr.lokacarsite.beans.Client;
-import eni_ecole.fr.lokacarsite.dao.CarDao;
-import eni_ecole.fr.lokacarsite.dao.ClientDao;
-import eni_ecole.fr.lokacarsite.ui.client.details.ClientAddFragment;
-import eni_ecole.fr.lokacarsite.ui.client.details.ClientDetailFragment;
-import eni_ecole.fr.lokacarsite.ui.client.details.ClientModifyFragment;
+import eni_ecole.fr.lokacarsite.beans.CarModel;
+import eni_ecole.fr.lokacarsite.beans.Category;
+import eni_ecole.fr.lokacarsite.dao.CarModelDao;
+import eni_ecole.fr.lokacarsite.dao.CategoryDao;
+import eni_ecole.fr.lokacarsite.ui.category.details.CategoryAddFragment;
+import eni_ecole.fr.lokacarsite.ui.category.details.CategoryDetailFragment;
+import eni_ecole.fr.lokacarsite.ui.category.details.CategoryModifyFragment;
 import eni_ecole.fr.lokacarsite.ui.generic.list.GenericListFragment;
 
 /**
  * Created by pbontempi2017 on 29/06/2017.
  */
 
-public class ClientListFragment extends GenericListFragment<Client> {
+public class CategoryListFragment extends GenericListFragment<Category> {
 
 
     private int lastFilterSelected ;
 
     @Override
-    public int getIdObject(Client object) {
+    public int getIdObject(Category object) {
         return object.id;
     }
 
     @Override
-    public ClientDao getDao(Context context) {
-        return new ClientDao(context);
+    public CategoryDao getDao(Context context) {
+        return new CategoryDao(context);
     }
 
     @Override
-    public void constructListItem(View view, Client object) {
+    public void constructListItem(View view, Category object) {
         TextView mIdView = (TextView) view.findViewById(R.id.id);
         TextView mContentView = (TextView) view.findViewById(R.id.content);
         TextView mDetailView = (TextView) view.findViewById(R.id.details);
         TextView mStatusView = (TextView) view.findViewById(R.id.contentStatus);
 
-        mIdView.setText(object.firstname);
-
-        mContentView.setText(object.lastname);
-        mDetailView.setText(object.mail);
-
-
+        mIdView.setText(object.name);
 
     }
 
@@ -65,21 +58,22 @@ public class ClientListFragment extends GenericListFragment<Client> {
 
     @Override
     protected Class getAddFragment() {
-        return ClientAddFragment.class;
+        return CategoryAddFragment.class;
     }
 
     @Override
     protected Class getDetailFragment() {
-        return ClientDetailFragment.class;
+        return CategoryDetailFragment.class;
     }
 
     @Override
     protected Class getModifyFragment() {
-        return ClientModifyFragment.class;
+        return CategoryModifyFragment.class;
     }
 
     @Override
     protected int getListLayout() {
-        return R.layout.client_list_content;
+        return R.layout.category_list_content;
     }
+
 }
