@@ -29,8 +29,8 @@ public class UserAdapter extends ArrayAdapter<User> {
     private final int ressourceId;
     private final Resources ressource;
 
-    public UserAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull ArrayList<User> users) {
-        super(context, resource, textViewResourceId, users);
+    public UserAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<User> users) {
+        super(context, resource, users);
         this.users = users;
         this.context = context;
         this.ressourceId = resource;
@@ -51,18 +51,19 @@ public class UserAdapter extends ArrayAdapter<User> {
         }
 
         User oneUser;
-
-        TextView listClientLastname;
-        TextView listClientFirstname;
-
-        listClientLastname = (TextView) view.findViewById(R.id.list_client_lastname);
-        listClientFirstname = (TextView) view.findViewById(R.id.list_client_firstname);
-
-
         oneUser = users.get(position);
 
-        listClientLastname.setText(oneUser.lastname);
-        listClientFirstname.setText(oneUser.firstname);
+        TextView mIdView = (TextView) view.findViewById(R.id.id);
+        TextView mContentView = (TextView) view.findViewById(R.id.content);
+        TextView mDetailView = (TextView) view.findViewById(R.id.details);
+        TextView mStatusView = (TextView) view.findViewById(R.id.contentStatus);
+
+        mIdView.setText(oneUser.firstname);
+
+        mContentView.setText(oneUser.lastname);
+        mDetailView.setText(oneUser.mail);
+
+
 
 
         return view;

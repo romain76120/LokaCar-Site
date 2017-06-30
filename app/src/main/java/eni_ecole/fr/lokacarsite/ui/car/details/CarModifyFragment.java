@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
@@ -63,11 +67,31 @@ public class CarModifyFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_car_modify, container, false);
         ArrayAdapter adapter = new CarBrandsAdapter(getActivity(),R.layout.carbrand_list_content, new CarBrandDao(getContext()).get());
+        ImageView idphotomodify;
+        Spinner marquespinnermodify;
+        Spinner intitulespinnermodify;
+        Spinner typespinnermodify;
+        Spinner carburantspinnermodify;
+        EditText immatspinnermodify;
+        EditText prixspinnermodify;
+
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.car_detail)).setText(mItem.registration);
-            //((Spinner) rootView.findViewById(R.id.carburantspinnermodify)).setAdapter(adapter.getView(adapter.getPosition()));
+            idphotomodify = (ImageView) rootView.findViewById(R.id.idphotomodify);
+            marquespinnermodify = (Spinner) rootView.findViewById(R.id.marquespinnermodify);
+            intitulespinnermodify = (Spinner) rootView.findViewById(R.id.intitulespinnermodify);
+            typespinnermodify = (Spinner) rootView.findViewById(R.id.typespinnermodify);
+            carburantspinnermodify = (Spinner) rootView.findViewById(R.id.carburantspinnermodify);
+            immatspinnermodify = (EditText) rootView.findViewById(R.id.immatspinnermodify);
+            prixspinnermodify = (EditText) rootView.findViewById(R.id.prixspinnermodify);
+
+            ArrayList<String> carburants = new ArrayList<String>();
+            carburants.add("Diesel");
+            carburants.add("Essence");
+            carburantspinnermodify.setAdapter(new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item,carburants));
+            immatspinnermodify.setText(mItem.registration);
+            prixspinnermodify.setText(String.valueOf(mItem.price) + " €");
 
         }
 

@@ -34,8 +34,8 @@ public class ClientAdapter extends ArrayAdapter<Client> {
     private final int ressourceId;
     private final Resources ressource;
 
-    public ClientAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull ArrayList<Client> clients) {
-        super(context, resource, textViewResourceId, clients);
+    public ClientAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Client> clients) {
+        super(context, resource, clients);
         this.clients = clients;
         this.context = context;
         this.ressourceId = resource;
@@ -58,17 +58,17 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         Client oneClient;
 
 
-        TextView listClientLastname;
-        TextView listClientFirstname;
-
-        listClientLastname = (TextView) view.findViewById(R.id.list_client_lastname);
-        listClientFirstname = (TextView) view.findViewById(R.id.list_client_firstname);
-
+        TextView mIdView = (TextView) view.findViewById(R.id.id);
+        TextView mContentView = (TextView) view.findViewById(R.id.content);
+        TextView mDetailView = (TextView) view.findViewById(R.id.details);
 
         oneClient = clients.get(position);
 
-        listClientLastname.setText(oneClient.lastname);
-        listClientFirstname.setText(oneClient.firstname);
+        mIdView.setText(oneClient.firstname);
+
+        mContentView.setText(oneClient.lastname);
+        mDetailView.setText(oneClient.mail);
+
 
 
         return view;

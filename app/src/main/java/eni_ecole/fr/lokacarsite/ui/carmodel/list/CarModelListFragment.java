@@ -35,12 +35,10 @@ public class CarModelListFragment extends GenericListFragment<CarModel> {
     @Override
     public void constructListItem(View view, CarModel object) {
         TextView mIdView = (TextView) view.findViewById(R.id.id);
-        TextView mContentView = (TextView) view.findViewById(R.id.content);
-        TextView mDetailView = (TextView) view.findViewById(R.id.details);
-        TextView mStatusView = (TextView) view.findViewById(R.id.contentStatus);
+        TextView mCarBrandView = (TextView) view.findViewById(R.id.carbrand);
 
         mIdView.setText(object.name);
-
+        mCarBrandView.setText(object.carBrand.name);
     }
 
     @Override
