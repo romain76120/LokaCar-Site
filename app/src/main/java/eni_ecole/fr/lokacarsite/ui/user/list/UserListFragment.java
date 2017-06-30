@@ -76,4 +76,9 @@ public class UserListFragment extends GenericListFragment<User> {
         return UserModifyFragment.class;
     }
 
+    @Override
+    protected int getListLayout() {
+        return R.layout.user_list_content;
+    }
+
 }

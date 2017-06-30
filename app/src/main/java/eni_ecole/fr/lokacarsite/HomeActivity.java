@@ -18,8 +18,12 @@ import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
+import eni_ecole.fr.lokacarsite.ui.carbrand.list.CarBrandListFragment;
+import eni_ecole.fr.lokacarsite.ui.carmodel.list.CarModelListFragment;
+import eni_ecole.fr.lokacarsite.ui.category.list.CategoryListFragment;
 import eni_ecole.fr.lokacarsite.ui.client.list.ClientListFragment;
 import eni_ecole.fr.lokacarsite.ui.generic.list.GenericListFragment;
+import eni_ecole.fr.lokacarsite.ui.leasing.list.LeasingListFragment;
 import eni_ecole.fr.lokacarsite.ui.user.list.UserListFragment;
 
 
@@ -127,22 +131,22 @@ public class HomeActivity extends AppCompatActivity
                 switchFragment(new ClientListFragment());
                 break;
             case R.id.nav_leasing:
-                // TODO
+                switchFragment(new LeasingListFragment());
                 break;
             case R.id.nav_carmodel:
-                // TODO
+                switchFragment(new CarModelListFragment());
                 break;
             case R.id.nav_carbrand:
-                // TODO
+                switchFragment(new CarBrandListFragment());
                 break;
             case R.id.nav_category:
-                // TODO
+                switchFragment(new CategoryListFragment());
                 break;
             case R.id.nav_user:
                 switchFragment(new UserListFragment());
                 break;
             case R.id.nav_sales:
-                switchFragment(new CarListFragment());
+                // TODO
                 break;
             case R.id.nav_agency:
                 // TODO

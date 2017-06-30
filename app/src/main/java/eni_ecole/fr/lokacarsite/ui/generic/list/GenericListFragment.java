@@ -78,7 +78,7 @@ public abstract class GenericListFragment<T> extends Fragment {
     protected abstract Class<?> getAddFragment();
     protected abstract Class<?> getDetailFragment();
     protected abstract Class<?> getModifyFragment();
-
+    protected abstract int getListLayout();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -443,7 +443,7 @@ public abstract class GenericListFragment<T> extends Fragment {
         @Override
         public ItemRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.car_list_content, parent, false);
+                    .inflate(getListLayout(), parent, false);
 //            view.setBackground(paint);
             return new ItemRecyclerViewAdapter.ViewHolder(view);
         }
@@ -516,6 +516,8 @@ public abstract class GenericListFragment<T> extends Fragment {
 
 
     }
+
+
 
 
     private class Insert extends AsyncTask<T, Integer, String> {
