@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
 import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.Client;
 import eni_ecole.fr.lokacarsite.constant.Constant;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
@@ -19,7 +20,7 @@ public class ClientAddFragment extends Fragment {
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
-    Car mItem;
+    Client mItem;
     /**
      * The dummy content this fragment is presenting.
      */
@@ -68,7 +69,7 @@ public class ClientAddFragment extends Fragment {
         CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
         if (appBarLayout != null) {
 
-            appBarLayout.setTitle("Création du véhicule");
+            appBarLayout.setTitle("Création du client");
         }
 
         return rootView;
