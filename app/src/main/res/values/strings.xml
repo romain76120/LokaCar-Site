@@ -45,4 +45,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="action_cancel">Cancel</string>
     <string name="action_save">Save</string>
+    <string name="nav_agency">Agency</string>
+    <string name="nav_category">Category</string>
+    <string name="nav_carbrand">Car brand</string>
+    <string name="nav_carmodel">Car model</string>
+    <string name="nav_leasing">Leasing</string>
 </resources>

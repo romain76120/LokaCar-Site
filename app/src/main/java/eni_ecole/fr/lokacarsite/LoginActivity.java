@@ -116,6 +116,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showProgress(false);
+    }
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -348,8 +354,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if (userDao.get().size() == 0)
                 {
                     createSampleDB();
-
-                    return true;
+                    user = userDao.getUser(mEmail, mPassword);
+                    if(user != null){
+                        Constant.user = user;
+                        return true;
+                    }
                 }
             }
 
@@ -379,49 +388,50 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 //mPasswordView.requestFocus();
             }
-            showProgress(false);
         }
 
         @Override
         protected void onCancelled() {
             mAuthTask = null;
-            showProgress(false);
+        }
+
+        private void createSampleDB() {
+            UserDao userDao = new UserDao(LoginActivity.this);
+            AgencyDao agencyDao = new AgencyDao(LoginActivity.this);
+            CarBrandDao carBrandDao = new CarBrandDao(LoginActivity.this);
+            CarModelDao carModelDao = new CarModelDao(LoginActivity.this);
+            CategoryDao categoryDao = new CategoryDao(LoginActivity.this);
+            CarDao carDao = new CarDao(LoginActivity.this);
+            ClientDao clientDao = new ClientDao(LoginActivity.this);
+            LeasingDao leasingDao = new LeasingDao(LoginActivity.this);
+
+            Long idCarBrand = carBrandDao.add(new CarBrand("Peugeot"));
+            CarBrand carBrand = carBrandDao.get(idCarBrand.intValue());
+
+            Long idCarModel = carModelDao.add(new CarModel(carBrand,"206"));
+            CarModel carModel = carModelDao.get(idCarModel.intValue());
+
+            Long idCategory = categoryDao.add(new Category("Citadine"));
+            Category category = categoryDao.get(idCategory.intValue());
+
+            Long idAgency = agencyDao.add(new Agency("Agency", "Please enter an address", "Please enter an url", "0000000000"));
+            Agency agency = agencyDao.get(idAgency.intValue());
+
+            Long carId = carDao.add(new Car(agency,carModel,"AAT-448-ZT","Diesel",category,"Ville",new ArrayList<Photo>(), 50.0f,false,new ArrayList<Leasing>()));
+            Car car = carDao.get(carId.intValue());
+
+            Long idClient  = clientDao.add(new Client("Roger","Pierre","roger.pierre@lokacar.com","0900450068",new ArrayList<Leasing>()));
+            Client client = clientDao.get(idClient.intValue());
+
+            Long idLeasing = leasingDao.add(new Leasing(car,client, new SimpleDateFormat().format(new Date()), new SimpleDateFormat().format(new Date()), new ArrayList<Photo>(), new ArrayList<Photo>(), new SimpleDateFormat().format(new Date()), new SimpleDateFormat().format(new Date()), 50.0f));
+            Leasing leasing = leasingDao.get(idLeasing.intValue());
+
+            Long idUser = userDao.add(new User("Admin", "Admin", "admin@admin.com", "0000000000", "a", "a",true, agency ));
+            userDao.add(new User("User", "User", "user@user.com", "0000000000", "u", "u",false, agency ));
+            Constant.user = userDao.get(idUser.intValue());
         }
     }
 
-    private void createSampleDB() {
-        UserDao userDao = new UserDao(LoginActivity.this);
-        AgencyDao agencyDao = new AgencyDao(LoginActivity.this);
-        CarBrandDao carBrandDao = new CarBrandDao(LoginActivity.this);
-        CarModelDao carModelDao = new CarModelDao(LoginActivity.this);
-        CategoryDao categoryDao = new CategoryDao(LoginActivity.this);
-        CarDao carDao = new CarDao(LoginActivity.this);
-        ClientDao clientDao = new ClientDao(LoginActivity.this);
-        LeasingDao leasingDao = new LeasingDao(LoginActivity.this);
 
-        Long idCarBrand = carBrandDao.add(new CarBrand("Peugeot"));
-        CarBrand carBrand = carBrandDao.get(idCarBrand.intValue());
-
-        Long idCarModel = carModelDao.add(new CarModel(carBrand,"206"));
-        CarModel carModel = carModelDao.get(idCarModel.intValue());
-
-        Long idCategory = categoryDao.add(new Category("Citadine"));
-        Category category = categoryDao.get(idCategory.intValue());
-
-        Long idAgency = agencyDao.add(new Agency("Agency", "Please enter an address", "Please enter an url", "0000000000"));
-        Agency agency = agencyDao.get(idAgency.intValue());
-
-        Long carId = carDao.add(new Car(agency,carModel,"AAT-448-ZT","Diesel",category,"Ville",new ArrayList<Photo>(), 50.0f,false,new ArrayList<Leasing>()));
-        Car car = carDao.get(carId.intValue());
-
-        Long idClient  = clientDao.add(new Client("Roger","Pierre","roger.pierre@lokacar.com","0900450068",new ArrayList<Leasing>()));
-        Client client = clientDao.get(idClient.intValue());
-
-        Long idLeasing = leasingDao.add(new Leasing(car,client, new SimpleDateFormat().format(new Date()), new SimpleDateFormat().format(new Date()), new ArrayList<Photo>(), new ArrayList<Photo>(), new SimpleDateFormat().format(new Date()), new SimpleDateFormat().format(new Date()), 50.0f));
-        Leasing leasing = leasingDao.get(idLeasing.intValue());
-
-        Long idUser = userDao.add(new User("Default", "Default", "default@default.com", "0000000000", "d", "d",true, agency ));
-        Constant.user = userDao.get(idUser.intValue());
-    }
 }
 

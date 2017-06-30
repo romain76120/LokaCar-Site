@@ -20,6 +20,7 @@ import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 import eni_ecole.fr.lokacarsite.ui.car.list.CarListFragment;
 import eni_ecole.fr.lokacarsite.ui.client.list.ClientListFragment;
 import eni_ecole.fr.lokacarsite.ui.generic.list.GenericListFragment;
+import eni_ecole.fr.lokacarsite.ui.user.list.UserListFragment;
 
 
 public class HomeActivity extends AppCompatActivity
@@ -53,28 +54,27 @@ public class HomeActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
         setNavigation(R.id.nav_park);
-//        final EditText editTextQuery = (EditText) findViewById(R.id.edit_text_query);
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//        String url ="https://databases.000webhost.com/db_structure.php?server=1&db=id2071219_lokacarsite&token=4dcd1e90bb652bbe9217ebf8203de76c";
-//
-//// Request a string response from the provided URL.
-//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-//                new Response.Listener<String>() {
-//                    @Override
-//                    public void onResponse(String response) {
-//                        // Display the first 500 characters of the response string.
-//                        editTextQuery.setText("La réponse est : "+ response.substring(0,500));
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                editTextQuery.setText("ça ne fonctionne pas");
-//            }
-//        });
-//// Add the request to the RequestQueue.
-//        queue.add(stringRequest);
+
+        if (Constant.user.admin == false)
+        {
+            hideItemAdmin();
+        }
+
+    }
+
+    private void hideItemAdmin()
+    {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_agency).setVisible(false);
+        nav_Menu.findItem(R.id.nav_carbrand).setVisible(false);
+        nav_Menu.findItem(R.id.nav_carmodel).setVisible(false);
+        nav_Menu.findItem(R.id.nav_category).setVisible(false);
+        nav_Menu.findItem(R.id.nav_user).setVisible(false);
+        nav_Menu.findItem(R.id.nav_sales).setVisible(false);
     }
 
     @Override
@@ -126,11 +126,26 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_client:
                 switchFragment(new ClientListFragment());
                 break;
+            case R.id.nav_leasing:
+                // TODO
+                break;
+            case R.id.nav_carmodel:
+                // TODO
+                break;
+            case R.id.nav_carbrand:
+                // TODO
+                break;
+            case R.id.nav_category:
+                // TODO
+                break;
             case R.id.nav_user:
-                switchFragment(new CarListFragment());
+                switchFragment(new UserListFragment());
                 break;
             case R.id.nav_sales:
                 switchFragment(new CarListFragment());
+                break;
+            case R.id.nav_agency:
+                // TODO
                 break;
             case R.id.nav_disconnection:
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
@@ -139,6 +154,33 @@ public class HomeActivity extends AppCompatActivity
                 break;
         }
 
+//
+//        android:id="@+id/nav_park"
+//        android:title="@string/nav_park" />
+//        <item
+//        android:id="@+id/nav_client"
+//        android:title="@string/nav_client" />
+//        <item
+//        android:id="@+id/nav_leasing"
+//        android:title="@string/nav_leasing" />
+//        <item
+//        android:id="@+id/nav_carmodel"
+//        android:title="@string/nav_carmodel" />
+//        <item
+//        android:id="@+id/nav_carbrand"
+//        android:title="@string/nav_carbrand" />
+//        <item
+//        android:id="@+id/nav_category"
+//        android:title="@string/nav_category" />
+//        <item
+//        android:id="@+id/nav_sales"
+//        android:title="@string/nav_sales" />
+//        <item
+//        android:id="@+id/nav_user"
+//        android:title="@string/nav_user" />
+//        <item
+//        android:id="@+id/nav_agency"
+//        android:title="@string/nav_agency" />
 
     }
 

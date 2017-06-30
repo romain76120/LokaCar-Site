@@ -10,11 +10,26 @@
             android:id="@+id/nav_client"
             android:title="@string/nav_client" />
         <item
-            android:id="@+id/nav_user"
-            android:title="@string/nav_user" />
+            android:id="@+id/nav_leasing"
+            android:title="@string/nav_leasing" />
+        <item
+            android:id="@+id/nav_carmodel"
+            android:title="@string/nav_carmodel" />
+        <item
+            android:id="@+id/nav_carbrand"
+            android:title="@string/nav_carbrand" />
+        <item
+            android:id="@+id/nav_category"
+            android:title="@string/nav_category" />
         <item
             android:id="@+id/nav_sales"
             android:title="@string/nav_sales" />
+        <item
+            android:id="@+id/nav_user"
+            android:title="@string/nav_user" />
+        <item
+            android:id="@+id/nav_agency"
+            android:title="@string/nav_agency" />
         <item
             android:id="@+id/nav_disconnection"
             android:title="@string/nav_disconnection" />
