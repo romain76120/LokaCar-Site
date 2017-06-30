@@ -178,6 +178,7 @@ public abstract class GenericListFragment<T> extends Fragment {
                     Fragment fragment = null;
                     try {
                         fragment = FragmentManager.getFragment();
+                        fragment.setArguments(arguments);
                         getFragmentManager().beginTransaction()
                                 .replace(R.id.car_detail_container, fragment)
                                 .commit();
@@ -209,6 +210,7 @@ public abstract class GenericListFragment<T> extends Fragment {
                     Fragment fragment = null;
                     try {
                         fragment = FragmentManager.getFragment();
+                        fragment.setArguments(arguments);
                         getFragmentManager().beginTransaction()
                                 .replace(R.id.car_detail_container, fragment)
                                 .commit();
