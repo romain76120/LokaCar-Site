@@ -29,23 +29,6 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 tools:text="Catégorie" />
-
-            <TextView
-                android:id="@+id/content"
-                style="@style/List.text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                tools:text="Marque modèle" />
-
-            <TextView
-                android:id="@+id/details"
-                style="@style/List.text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                tools:text="Carburant" />
-
         </LinearLayout>
 
 
