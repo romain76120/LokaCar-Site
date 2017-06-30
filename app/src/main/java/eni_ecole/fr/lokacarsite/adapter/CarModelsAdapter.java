@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import eni_ecole.fr.lokacarsite.R;
+import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.beans.CarModel;
 
 /**
@@ -48,14 +49,10 @@ public class CarModelsAdapter extends ArrayAdapter<CarModel> {
             view = convertView;
         }
 
-        CarModel oneCarModel;
-
-        TextView listCarBrand;
-
-        listCarBrand = (TextView) view.findViewById(R.id.list_car_model);
-
-        oneCarModel = carModels.get(position);
-
+        CarModel cm = carModels.get(position);
+        // oneCarBrand = carBrands.get(position);
+        TextView marque =(TextView) view.findViewById(R.id.id);
+        marque.setText(cm.name);
         return view;
     }
 }

@@ -7,12 +7,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import de.greenrobot.event.EventBus;
 import eni_ecole.fr.lokacarsite.R;
+import eni_ecole.fr.lokacarsite.adapter.CarBrandsAdapter;
+import eni_ecole.fr.lokacarsite.adapter.CarModelsAdapter;
 import eni_ecole.fr.lokacarsite.beans.Car;
+import eni_ecole.fr.lokacarsite.beans.CarBrand;
 import eni_ecole.fr.lokacarsite.constant.Constant;
+import eni_ecole.fr.lokacarsite.dao.CarBrandDao;
 import eni_ecole.fr.lokacarsite.dao.CarDao;
 import eni_ecole.fr.lokacarsite.tools.QueryEvent;
 
@@ -56,9 +62,13 @@ public class CarModifyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_car_modify, container, false);
+        ArrayAdapter adapter = new CarBrandsAdapter(getActivity(),R.layout.carbrand_list_content, new CarBrandDao(getContext()).get());
+
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.car_detail)).setText(mItem.registration);
+            //((Spinner) rootView.findViewById(R.id.carburantspinnermodify)).setAdapter(adapter.getView(adapter.getPosition()));
+
         }
 
         return rootView;

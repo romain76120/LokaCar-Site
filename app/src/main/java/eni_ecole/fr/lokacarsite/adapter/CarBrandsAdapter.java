@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,8 +34,8 @@ public class CarBrandsAdapter extends ArrayAdapter<CarBrand> {
     private final int ressourceId;
     private final Resources ressource;
 
-    public CarBrandsAdapter(@NonNull Context context, @LayoutRes int resource, @IdRes int textViewResourceId, @NonNull ArrayList<CarBrand> carBrands) {
-        super(context, resource, textViewResourceId, carBrands);
+    public CarBrandsAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<CarBrand> carBrands) {
+        super(context, resource, carBrands);
         this.carBrands = carBrands;
         this.context = context;
         this.ressourceId = resource;
@@ -53,14 +55,10 @@ public class CarBrandsAdapter extends ArrayAdapter<CarBrand> {
             view = convertView;
         }
 
-        CarBrand oneCarBrand;
-
-        TextView listCarBrand;
-
-        listCarBrand = (TextView) view.findViewById(R.id.list_car_brand);
-
-        oneCarBrand = carBrands.get(position);
-
+        CarBrand cb = carBrands.get(position);
+       // oneCarBrand = carBrands.get(position);
+        TextView marque =(TextView) view.findViewById(R.id.id);
+        marque.setText(cb.name);
         return view;
     }
 }

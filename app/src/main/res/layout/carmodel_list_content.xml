@@ -30,33 +30,9 @@
                 android:layout_marginLeft="10dp"
                 tools:text="Catégorie" />
 
-            <TextView
-                android:id="@+id/content"
-                style="@style/List.text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                tools:text="Marque modèle" />
-
-            <TextView
-                android:id="@+id/details"
-                style="@style/List.text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                tools:text="Carburant" />
-
         </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/contentStatus"
-            style="@style/List.status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="0dp"
-            tools:text="@string/string_list_car_status" />
 
         <ImageView
             android:layout_width="20dp"
