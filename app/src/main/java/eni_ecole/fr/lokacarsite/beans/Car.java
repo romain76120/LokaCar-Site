@@ -8,61 +8,42 @@ import java.util.List;
 
 public class Car {
     public Integer id;
-    public CarModel carModel;
-    public Agency agency;
+    public Integer idCarModel;
     public String registration; // Immatriculation
     public String fuel;
-    public Category category; // suv, berline...
+    public String type; // suv, berline...
     public String criteria;
-    public List<Photo> photos;
+    public List<String> photos;
     public Float price;
     public List<Leasing> leasings;
     public Boolean isLeasing;
 
-    public Car() {
-        carModel = new CarModel();
-        agency = new Agency();
-        category = new Category();
-    }
-
-    public Car(Integer id, Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
+    public Car(Integer id, Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = id;
-        this.agency = agency;
-        this.carModel = carModel;
+        this.idCarModel = idCarModel;
         this.registration = registration;
         this.fuel = fuel;
-        this.category = category;
+        this.type = type;
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
         this.isLeasing = isLeasing;
         this.leasings = leasings;
     }
-
-    public Car(Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
+    public Car(Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, List<Leasing> leasings) {
         this.id = -1;
-        this.agency = agency;
-        this.carModel = carModel;
+        this.idCarModel = idCarModel;
         this.registration = registration;
         this.fuel = fuel;
-        this.category = category;
+        this.type = type;
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
-        this.isLeasing = isLeasing;
+        this.isLeasing = false;
         this.leasings = leasings;
     }
 
-    @Override
-    public String toString() {
-        return carModel.name
-                + carModel.carBrand.name
-                + agency
-                + registration
-                + fuel
-                + category.name
-                + criteria
-                + price ;
+    public Car(int i, String s) {
 
     }
 }

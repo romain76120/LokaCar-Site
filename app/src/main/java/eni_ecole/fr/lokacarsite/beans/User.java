@@ -12,13 +12,75 @@ public class User {
     public String phone;
     public String login;
     public String password;
-    public Boolean admin;
-    public Agency agency;
+    public int admin;
 
-    public User() {
+
+
+    public Integer getId() {
+        return id;
     }
 
-    public User(Integer id, String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin, Agency agency) {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
+
+    public User(Integer id, String firstname, String lastname, String mail, String phone, String login, String password, int admin) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -27,10 +89,9 @@ public class User {
         this.login = login;
         this.password = password;
         this.admin = admin;
-        this.agency = agency;
     }
 
-    public User(String firstname, String lastname, String mail, String phone, String login, String password, Boolean admin, Agency agency) {
+    public User(String firstname, String lastname, String mail, String phone, String login, String password, int admin) {
         this.id = -1;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -39,6 +100,5 @@ public class User {
         this.login = login;
         this.password = password;
         this.admin = admin;
-        this.agency = agency;
     }
 }
