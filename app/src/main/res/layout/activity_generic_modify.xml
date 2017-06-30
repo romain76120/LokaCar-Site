@@ -39,26 +39,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <LinearLayout
+        android:id="@+id/linearLayoutFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:gravity="bottom|end"
+        android:orientation="horizontal" >
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/action_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|right"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/car_detail_container"
-        app:layout_anchorGravity="center_vertical|left"
+        android:tint="@android:color/white"
         app:srcCompat="@android:drawable/ic_menu_save" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/action_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|left"
         android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@+id/car_detail_container"
-        app:layout_anchorGravity="center_vertical|right"
+        android:tint="@android:color/white"
         app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
-
+</LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
