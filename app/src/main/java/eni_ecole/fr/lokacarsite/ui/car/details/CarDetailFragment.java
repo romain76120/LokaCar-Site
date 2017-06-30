@@ -59,6 +59,11 @@ public class CarDetailFragment extends Fragment {
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
             ((TextView) rootView.findViewById(R.id.imattextviewdetail)).setText(mItem.registration);
+            ((TextView)rootView.findViewById(R.id.intituletextviewdetail)).setText(mItem.carModel.name);
+            ((TextView)rootView.findViewById(R.id.marquetextviewdetail)).setText(mItem.carModel.carBrand.name);
+            ((TextView)rootView.findViewById(R.id.carburanttextviewdetail)).setText(mItem.fuel);
+            ((TextView)rootView.findViewById(R.id.prixtextviewdetail)).setText(String.valueOf(mItem.price));
+            ((TextView)rootView.findViewById(R.id.typetextviewdetail)).setText(String.valueOf(mItem.category.name));
         }
 
         return rootView;
