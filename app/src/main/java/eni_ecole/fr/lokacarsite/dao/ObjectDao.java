@@ -35,14 +35,17 @@ public abstract class ObjectDao<T> {
     private final static String QUERY_CREATE_TABLE_CAR = "CREATE TABLE IF NOT EXISTS "
             + "CAR ("
             + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "ID_CARMODEL INTEGER,"
-            + "ID_AGENCY INTEGER,"
-            + "ID_CATEGORY INTEGER,"
+            + "ID_CARMODEL INTEGER ,"
+            + "ID_AGENCY INTEGER ,"
+            + "ID_CATEGORY INTEGER ,"
             + "ISLEASING INTEGER,"
             + "REGISTRATION TEXT,"
             + "FUEL TEXT,"
             + "CRITERIA TEXT,"
-            + "PRICE FLOAT)";
+            + "PRICE FLOAT, "
+            + "FOREIGN KEY (ID_CARMODEL) REFERENCES CARMODEL(_ID),"
+            + "FOREIGN KEY (ID_AGENCY) REFERENCES AGENCY(_ID),"
+            + "FOREIGN KEY (ID_CATEGORY) REFERENCES CATEGORY(_ID))";
 
     private final static String QUERY_CREATE_TABLE_CARMODEL = "CREATE TABLE IF NOT EXISTS "
             + "CARMODEL ("
@@ -73,15 +76,18 @@ public abstract class ObjectDao<T> {
             + "END_DATE TEXT, "
             + "REAL_START_DATE TEXT, "
             + "REAL_END_DATE TEXT, "
-            + "PRICE_TOTAL FLOAT)";
+            + "PRICE_TOTAL FLOAT,"
+            + "FOREIGN KEY (ID_CAR) REFERENCES CAR(_ID),"
+            + "FOREIGN KEY (ID_CLIENT) REFERENCES CLIENT(_ID))";
 
     private final static String QUERY_CREATE_TABLE_PHOTO = "CREATE TABLE IF NOT EXISTS "
             + "PHOTO ("
             + "_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + "ID_CAR INTEGER, "
+            + "ID_CAR INTEGER , "
             + "ID_LEASING INTEGER, "
             + "IS_BEFORE INTEGER, "
-            + "NAME TEXT)";
+            + "NAME TEXT ,"
+            + "FOREIGN KEY (ID_CAR) REFERENCES CAR(_ID))";
 
 
     private final static String QUERY_CREATE_TABLE_USER = "CREATE TABLE IF NOT EXISTS "

@@ -2,6 +2,8 @@ package eni_ecole.fr.lokacarsite.beans;
 
 import java.util.List;
 
+import static android.R.attr.type;
+
 /**
  * Created by pbontempi2017 on 26/06/2017.
  */
