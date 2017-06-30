@@ -2,48 +2,69 @@ package eni_ecole.fr.lokacarsite.beans;
 
 import java.util.List;
 
+import static android.R.attr.type;
+
 /**
  * Created by pbontempi2017 on 26/06/2017.
  */
 
 public class Car {
     public Integer id;
-    public Integer idCarModel;
+    public CarModel carModel;
+    public Agency agency;
     public String registration; // Immatriculation
     public String fuel;
-    public String type; // suv, berline...
+    public Category category; // suv, berline...
     public String criteria;
-    public List<String> photos;
+    public List<Photo> photos;
     public Float price;
     public List<Leasing> leasings;
     public Boolean isLeasing;
 
-    public Car(Integer id, Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
+    public Car() {
+        carModel = new CarModel();
+        agency = new Agency();
+        category = new Category();
+    }
+
+    public Car(Integer id, Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = id;
-        this.idCarModel = idCarModel;
+        this.agency = agency;
+        this.carModel = carModel;
         this.registration = registration;
         this.fuel = fuel;
-        this.type = type;
+        this.category = category;
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
         this.isLeasing = isLeasing;
         this.leasings = leasings;
     }
-    public Car(Integer idCarModel, String registration, String fuel, String type, String criteria, List<String> photos, Float price, List<Leasing> leasings) {
+
+    public Car(Agency agency, CarModel carModel, String registration, String fuel, Category category, String criteria, List<Photo> photos, Float price, Boolean isLeasing, List<Leasing> leasings) {
         this.id = -1;
-        this.idCarModel = idCarModel;
+        this.agency = agency;
+        this.carModel = carModel;
         this.registration = registration;
         this.fuel = fuel;
-        this.type = type;
+        this.category = category;
         this.criteria = criteria;
         this.photos = photos;
         this.price = price;
-        this.isLeasing = false;
+        this.isLeasing = isLeasing;
         this.leasings = leasings;
     }
 
-    public Car(int i, String s) {
+    @Override
+    public String toString() {
+        return carModel.name
+                + carModel.carBrand.name
+                + agency
+                + registration
+                + fuel
+                + category.name
+                + criteria
+                + price ;
 
     }
 }
